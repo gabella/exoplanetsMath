@@ -1,0 +1,93 @@
+# This file was produced by the NASA Exoplanet Archive  http://exoplanetarchive.ipac.caltech.edu
+# Tue Apr 12 18:16:17 2016
+#
+# CONSTRAINT:  where (pl_orbper < 1032.
+# CONSTRAINT:  and pl_bmassj >= 1
+# CONSTRAINT:  and st_dist <= 20
+# CONSTRAINT:  )
+#
+# COLUMN pl_hostname:    Host Name
+# COLUMN pl_letter:      Planet Letter
+# COLUMN pl_discmethod:  Discovery Method
+# COLUMN pl_pnum:        Number of Planets in System
+# COLUMN pl_orbper:      Orbital Period [days]
+# COLUMN pl_orbpererr1:  Orbital Period Upper Unc. [days]
+# COLUMN pl_orbpererr2:  Orbital Period Lower Unc. [days]
+# COLUMN pl_orbperlim:   Orbital Period Limit Flag
+# COLUMN pl_orbsmax:     Orbit Semi-Major Axis [AU]
+# COLUMN pl_orbsmaxerr1: Orbit Semi-Major Axis Upper Unc. [AU]
+# COLUMN pl_orbsmaxerr2: Orbit Semi-Major Axis Lower Unc. [AU]
+# COLUMN pl_orbsmaxlim:  Orbit Semi-Major Axis Limit Flag
+# COLUMN pl_orbeccen:    Eccentricity
+# COLUMN pl_orbeccenerr1: Eccentricity Upper Unc.
+# COLUMN pl_orbeccenerr2: Eccentricity Lower Unc.
+# COLUMN pl_orbeccenlim: Eccentricity Limit Flag
+# COLUMN pl_orbincl:     Inclination [deg]
+# COLUMN pl_orbinclerr1: Inclination Upper Unc. [deg]
+# COLUMN pl_orbinclerr2: Inclination Lower Unc. [deg]
+# COLUMN pl_orbincllim:  Inclination Limit Flag
+# COLUMN pl_bmassj:      Planet Mass or M*sin(i)[Jupiter mass]
+# COLUMN pl_bmassjerr1:  Planet Mass or M*sin(i)Upper Unc. [Jupiter mass]
+# COLUMN pl_bmassjerr2:  Planet Mass or M*sin(i)Lower Unc. [Jupiter mass]
+# COLUMN pl_bmassjlim:   Planet Mass or M*sin(i)Limit Flag
+# COLUMN pl_bmassprov:   Planet Mass or M*sin(i) Provenance
+# COLUMN pl_radj:        Planet Radius [Jupiter radii]
+# COLUMN pl_radjerr1:    Planet Radius Upper Unc. [Jupiter radii]
+# COLUMN pl_radjerr2:    Planet Radius Lower Unc. [Jupiter radii]
+# COLUMN pl_radjlim:     Planet Radius Limit Flag
+# COLUMN pl_dens:        Planet Density [g/cm**3]
+# COLUMN pl_denserr1:    Planet Density Upper Unc. [g/cm**3]
+# COLUMN pl_denserr2:    Planet Density Lower Unc. [g/cm**3]
+# COLUMN pl_denslim:     Planet Density Limit Flag
+# COLUMN pl_ttvflag:     TTV Flag
+# COLUMN pl_kepflag:     Kepler Field Flag
+# COLUMN pl_k2flag:      K2 Mission Flag
+# COLUMN pl_nnotes:      Number of Notes
+# COLUMN ra_str:         RA [sexagesimal]
+# COLUMN ra:             RA [sexagesimal]
+# COLUMN dec_str:        Dec [sexagesimal]
+# COLUMN dec:            Dec [sexagesimal]
+# COLUMN st_dist:        Distance [pc]
+# COLUMN st_disterr1:    Distance Upper Unc. [pc]
+# COLUMN st_disterr2:    Distance Lower Unc. [pc]
+# COLUMN st_distlim:     Distance Limit Flag
+# COLUMN st_optmag:      Optical Magnitude [mag]
+# COLUMN st_optmagerr:   Optical Magnitude Unc. [mag]
+# COLUMN st_optmaglim:   Optical Magnitude Limit Flag
+# COLUMN st_optmagblend: Optical Magnitude Blend Flag
+# COLUMN st_optband:     Optical Magnitude Band
+# COLUMN st_teff:        Effective Temperature [K]
+# COLUMN st_tefferr1:    Effective Temperature Upper Unc. [K]
+# COLUMN st_tefferr2:    Effective Temperature Lower Unc. [K]
+# COLUMN st_tefflim:     Effective Temperature Limit Flag
+# COLUMN st_teffblend:   Effective Temperature Blend Flag
+# COLUMN st_mass:        Stellar Mass [Solar mass]
+# COLUMN st_masserr1:    Stellar Mass Upper Unc. [Solar mass]
+# COLUMN st_masserr2:    Stellar Mass Lower Unc. [Solar mass]
+# COLUMN st_masslim:     Stellar Mass Limit Flag
+# COLUMN st_massblend:   Stellar Mass Blend Flag
+# COLUMN st_rad:         Stellar Radius [Solar radii]
+# COLUMN st_raderr1:     Stellar Radius Upper Unc. [Solar radii]
+# COLUMN st_raderr2:     Stellar Radius Lower Unc. [Solar radii]
+# COLUMN st_radlim:      Stellar Radius Limit Flag
+# COLUMN st_radblend:    Stellar Radius Blend Flag
+# COLUMN rowupdate:      Date of Last Update
+#
+rowid,pl_hostname,pl_letter,pl_discmethod,pl_pnum,pl_orbper,pl_orbpererr1,pl_orbpererr2,pl_orbperlim,pl_orbsmax,pl_orbsmaxerr1,pl_orbsmaxerr2,pl_orbsmaxlim,pl_orbeccen,pl_orbeccenerr1,pl_orbeccenerr2,pl_orbeccenlim,pl_orbincl,pl_orbinclerr1,pl_orbinclerr2,pl_orbincllim,pl_bmassj,pl_bmassjerr1,pl_bmassjerr2,pl_bmassjlim,pl_bmassprov,pl_radj,pl_radjerr1,pl_radjerr2,pl_radjlim,pl_dens,pl_denserr1,pl_denserr2,pl_denslim,pl_ttvflag,pl_kepflag,pl_k2flag,pl_nnotes,ra_str,ra,dec_str,dec,st_dist,st_disterr1,st_disterr2,st_distlim,st_optmag,st_optmagerr,st_optmaglim,st_optmagblend,st_optband,st_teff,st_tefferr1,st_tefferr2,st_tefflim,st_teffblend,st_mass,st_masserr1,st_masserr2,st_masslim,st_massblend,st_rad,st_raderr1,st_raderr2,st_radlim,st_radblend,rowupdate
+340,HD 160691,b,Radial Velocity,4,643.25000000,0.90000000,-0.90000000,0,1.497000,,,0,0.128000,0.017000,-0.017000,0,,,,,1.08000,,,0,Msini,,,,,,,,,0,0,0,0,17h44m08.70s,266.036255,-51d50m02.6s,-51.834053,15.28,0.18,-0.19,0,5.150,,0,0,V (Johnson),5807.00,30.00,-30.00,0,0,1.08,0.05,-0.05,0,0,,,,,0,2014-08-21
+312,HD 147513,b,Radial Velocity,1,528.40000000,6.30000000,-6.30000000,0,1.320000,,,0,0.260000,0.050000,-0.050000,0,,,,,1.21000,,,0,Msini,,,,,,,,,0,0,0,0,16h24m01.29s,246.005371,-39d11m34.7s,-39.192982,12.87,0.14,-0.14,0,5.390,,0,0,V (Johnson),5883.00,,,0,0,1.11,,,0,0,,,,,0,2014-05-14
+439,HD 217107,b,Radial Velocity,2,7.12681600,0.00003900,-0.00003900,0,0.074800,0.004300,-0.004300,0,0.126700,0.005200,-0.005200,0,,,,,1.39000,0.11000,-0.11000,0,Msini,,,,,,,,,0,0,0,0,22h58m15.54s,344.564758,-02d23m43.4s,-2.395385,19.72,0.29,-0.30,0,6.160,,0,1,V (Johnson),5646.00,,,0,0,1.02,,,0,0,,,,,0,2014-05-14
+472,HD 27442,b,Radial Velocity,1,428.10000000,1.10000000,-1.10000000,0,1.271000,0.073000,-0.073000,0,0.060000,0.043000,-0.043000,0,,,,,1.56000,0.14000,-0.14000,0,Msini,,,,,,,,,0,0,0,0,04h16m29.03s,64.120956,-59d18m07.8s,-59.302155,18.24,0.17,-0.17,0,4.440,,0,0,V (Johnson),4846.00,44.00,-44.00,0,0,1.23,,,0,0,,,,,0,2014-07-23
+1947,gam Cep,b,Radial Velocity,1,903.30000000,1.50000000,-1.50000000,0,2.050000,0.060000,-0.060000,0,0.049000,0.034000,-0.034000,0,,,,,1.85000,0.16000,-0.16000,0,Msini,,,,,,,,,0,0,0,1,23h39m20.85s,354.836884,+77d37m56.2s,77.632278,13.79,0.10,-0.10,0,3.210,0.010,0,0,V (Johnson),,,,,0,1.40,0.12,-0.12,0,0,4.90,,,0,0,2014-08-27
+1960,ups And,c,Radial Velocity,4,241.25800000,0.06400000,-0.06400000,0,0.827774,0.000015,-0.000015,0,0.259600,0.007900,-0.007900,0,,,,,1.98100,0.01900,-0.01900,0,Msini,,,,,,,,,0,0,0,0,01h36m47.84s,24.199345,+41d24m19.7s,41.405460,13.47,0.13,-0.13,0,4.100,,0,0,V (Johnson),,,,,0,1.30,,,0,0,1.56,,,0,0,2014-05-14
+646,HIP 79431,b,Radial Velocity,1,111.70000000,0.70000000,-0.70000000,0,0.360000,,,,0.290000,0.020000,-0.020000,0,,,,,2.10000,,,0,Msini,,,,,,,,,0,0,0,0,16h12m41.77s,243.174057,-18d52m31.8s,-18.875504,14.90,0.75,-0.83,0,11.340,,0,0,V (Johnson),,,,,,,,,,,,,,,,2014-05-14
+651,HR 810,b,Radial Velocity,1,312.00000000,5.00000000,-5.00000000,0,0.910000,,,0,0.150000,0.050000,-0.050000,0,,,,,2.13000,,,0,Msini,,,,,,,,,0,0,0,0,02h42m33.47s,40.639442,-50d48m01.1s,-50.800293,17.24,0.16,-0.17,0,5.410,,0,0,V (Johnson),,,,,,,,,,,,,,,,2015-04-30
+130,GJ 876,b,Radial Velocity,4,61.11660000,0.00860000,-0.00860000,0,0.208317,0.000020,-0.000020,0,0.032400,0.001300,-0.001300,0,59.000,,,0,2.27560,0.00450,-0.00450,0,Mass,,,,,,,,,0,0,0,0,22h53m16.74s,343.319733,-14d15m49.3s,-14.263700,4.70,0.05,-0.05,0,10.191,0.015,0,0,V (Johnson),,,,,0,0.33,0.03,-0.03,0,0,,,,,0,2014-08-27
+548,HD 62509,b,Radial Velocity,1,589.64000000,0.81000000,-0.81000000,0,1.640000,0.270000,-0.270000,0,0.020000,0.030000,-0.030000,0,,,,,2.30000,0.45000,-0.45000,0,Msini,,,,,,,,,0,0,0,0,07h45m18.95s,116.328957,+28d01m34.3s,28.026199,10.34,0.09,-0.09,0,1.140,,0,0,V (Johnson),4946.00,18.00,-18.00,0,0,2.10,0.08,-0.08,0,0,8.31,0.09,-0.09,0,0,2015-03-26
+33,7 CMa,b,Radial Velocity,1,796.00000000,7.40000000,-7.40000000,0,1.930000,0.010000,-0.010000,0,0.220000,0.070000,-0.070000,0,,,,,2.46000,0.14000,-0.14000,0,Msini,,,,,,,,,0,0,0,0,06h36m41.04s,99.170990,-19d15m21.2s,-19.255878,19.84,0.27,-0.28,0,3.920,,0,0,V (Johnson),4792.00,100.00,-100.00,0,0,1.52,0.30,-0.30,0,0,2.30,0.10,-0.10,0,0,2015-10-22
+102,GJ 317,b,Radial Velocity,1,692.00000000,2.00000000,-2.00000000,0,1.150000,0.050000,-0.050000,0,0.110000,0.050000,-0.050000,0,45.000,30.000,-10.000,0,2.50000,0.70000,-0.40000,0,Mass,,,,,,,,,0,0,0,0,08h40m59.22s,130.246730,-23d27m22.6s,-23.456289,15.10,0.22,-0.22,0,11.970,0.014,0,0,V (Johnson),3510.00,50.00,-50.00,0,0,0.42,0.05,-0.05,0,0,,,,,,2014-08-27
+101,GJ 3021,b,Radial Velocity,1,133.71000000,0.20000000,-0.20000000,0,0.490000,,,0,0.511000,0.017000,-0.017000,0,,,,,3.37000,0.09000,-0.09000,0,Msini,,,,,,,,,0,0,0,1,00h16m12.68s,4.052823,-79d51m04.3s,-79.851181,17.62,0.16,-0.17,0,6.590,0.000,0,0,V (Johnson),5540.00,75.00,-75.00,0,0,0.90,,,0,0,0.90,,,0,0,2014-05-14
+129,GJ 86,b,Radial Velocity,1,15.76491000,0.00039000,-0.00039000,0,0.113000,0.006500,-0.006500,0,0.041600,0.007200,-0.007200,0,,,,,3.91000,0.32000,-0.32000,0,Msini,,,,,,,,,0,0,0,0,02h10m25.93s,32.608059,-50d49m25.4s,-50.823723,10.91,0.07,-0.07,0,6.120,,0,0,V (Johnson),5151.00,,,0,0,0.77,,,0,0,,,,,,2014-05-14
+1957,tau Boo,b,Radial Velocity,1,3.31245680,0.00000690,-0.00000690,0,0.049000,0.003000,-0.003000,0,0.011000,0.006000,-0.006000,0,,,,,4.32000,0.04000,-0.04000,0,Msini,,,,,,,,,0,0,0,0,13h47m15.74s,206.815598,+17d27m24.9s,17.456905,15.60,0.17,-0.17,0,4.500,,0,1,V (Johnson),6400.00,,,0,0,1.34,0.05,-0.05,0,0,1.46,0.05,-0.05,0,0,2015-04-16
+360,HD 1690,b,Radial Velocity,1,533.00000000,1.70000000,-1.70000000,0,1.300000,0.020000,-0.020000,0,0.640000,0.040000,-0.040000,0,,,,,6.10000,0.90000,-0.90000,0,Msini,,,,,,,,,0,0,0,0,00h21m13.32s,5.305497,-08d16m52.2s,-8.281169,7.01,,,-1,9.170,,0,0,V (Johnson),4393.00,85.00,-85.00,0,0,1.09,0.15,-0.15,0,0,16.70,3.60,-3.60,0,0,2014-05-14
+34,70 Vir,b,Radial Velocity,1,116.69260000,0.00140000,-0.00140000,0,0.481000,0.003000,-0.003000,0,0.399000,0.002000,-0.002000,0,,,,,7.40000,0.02000,-0.02000,0,Msini,,,,,,,,,0,0,0,0,13h28m25.81s,202.107544,+13d46m43.6s,13.778788,18.11,0.24,-0.24,0,4.980,,0,0,V (Johnson),5439.00,44.00,-44.00,0,0,1.09,0.02,-0.02,0,0,1.94,0.05,-0.05,0,0,2015-04-24
