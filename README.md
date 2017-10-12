@@ -1,6 +1,6 @@
 # exoplanets - Mathematica and other files to calculate the gravitational wave strain
 
-Some of the Mathematica files used in the calculation of gravitational waves from exoplanets.
+Some of the Mathematica files used in the calculation of gravitational waves from exoplanets.  Oh and as of today bleeding edge verions 11.2.0.0 .
 Started GitHub repo on 20171010, by gabella.
 
 Reorganized a very deranged and flat project.  The part I am sharing is the
