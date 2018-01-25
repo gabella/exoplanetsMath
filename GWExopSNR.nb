@@ -1,0 +1,77 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      1945,         69]
+NotebookOptionsPosition[      1384,         47]
+NotebookOutlinePosition[      1722,         62]
+CellTagsIndexPosition[      1679,         59]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Find the GW modes for each planet.  Calculate SNR with \
+Bill\[CloseCurlyQuote]s summation over modes and time T (following Maggiore \
+analysis).\
+\>", "Title",
+ CellChangeTimes->{{3.725902538591934*^9, 
+  3.725902579317333*^9}},ExpressionUUID->"f595ba48-a8dd-400f-9f80-\
+3f2b556a4468"],
+
+Cell[CellGroupData[{
+
+Cell["Load the GW functions, mostly from Maggiore chapter 4.", "Section",
+ CellChangeTimes->{{3.725902814916843*^9, 
+  3.725902827318121*^9}},ExpressionUUID->"2f6b9e8a-8ff0-4c8c-bde4-\
+087736ffdef0"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<GWFormula.nb`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.725902582254352*^9, 3.725902611614952*^9}, {
+  3.725902798733082*^9, 
+  3.725902800965272*^9}},ExpressionUUID->"7c6bbc96-ffbf-4457-9943-\
+3b221d4fe4bf"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1468, 1010},
+WindowMargins->{{Automatic, 111}, {Automatic, 10}},
+FrontEndVersion->"11.1 for Linux x86 (64-bit) (April 18, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 296, 7, 150, "Title", "ExpressionUUID" -> \
+"f595ba48-a8dd-400f-9f80-3f2b556a4468"],
+Cell[CellGroupData[{
+Cell[901, 33, 199, 3, 65, "Section", "ExpressionUUID" -> \
+"2f6b9e8a-8ff0-4c8c-bde4-087736ffdef0"],
+Cell[1103, 38, 253, 5, 32, "Input", "ExpressionUUID" -> \
+"7c6bbc96-ffbf-4457-9943-3b221d4fe4bf"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
