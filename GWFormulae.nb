@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     68073,       1799]
-NotebookOptionsPosition[     61371,       1626]
-NotebookOutlinePosition[     62595,       1663]
-CellTagsIndexPosition[     62375,       1655]
+NotebookDataLength[     71369,       1889]
+NotebookOptionsPosition[     64161,       1703]
+NotebookOutlinePosition[     65384,       1740]
+CellTagsIndexPosition[     65164,       1732]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1621,11 +1621,88 @@ Cell[BoxData[
   3.6743169455292997`*^9, 3.67431694606349*^9}, {3.72590239958366*^9, 
   3.725902408380816*^9}},ExpressionUUID->"0e32b960-ae5b-4d4d-94fd-\
 6779cb02d247"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Miscellany", "Section",
+ CellChangeTimes->{{3.7259118901308117`*^9, 
+  3.725911892983795*^9}},ExpressionUUID->"9d42dc4f-a932-4e1c-99c8-\
+afcc24d0a0fa"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"dateTimeStamp", "[", "csvfilename_", "]"}], ":=", " ", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"aa", ",", "bb", ",", "cc"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"aa", " ", "=", " ", 
+       RowBox[{
+        RowBox[{"StringSplit", "[", 
+         RowBox[{"csvfilename", ",", "\"\</\>\""}], "]"}], "[", 
+        RowBox[{"[", 
+         RowBox[{"-", "1"}], "]"}], "]"}]}], ";", "  ", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "Filename", " ", "with", " ", "stamp", " ", "is", " ", "last", " ", 
+        RowBox[{"element", "."}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"bb", " ", "=", " ", 
+       RowBox[{
+        RowBox[{"StringSplit", "[", 
+         RowBox[{"aa", ",", "\"\<.\>\""}], "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], ";", " ", 
+      RowBox[{"(*", " ", 
+       RowBox[{"Drop", " ", 
+        RowBox[{"the", " ", ".", "csv"}], " ", 
+        RowBox[{"extension", " ", "."}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"cc", " ", "=", " ", 
+       RowBox[{"StringSplit", "[", 
+        RowBox[{"bb", ",", " ", "\"\<_\>\""}], "]"}]}], ";", " ", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "Last", " ", "two", " ", "elements", " ", "are", " ", "the", " ", 
+        "YYYYMMDD", " ", "and", " ", "the", " ", "HHMMSS", " ", 
+        RowBox[{"strings", "."}]}], " ", "*)"}], " ", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"cc", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+       RowBox[{"cc", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"dateTimeStamp", "::", "usage"}], " ", "=", " ", 
+   "\"\<Given a filenae like exop_20180118_092644.csv, will return the \
+timestamp part, 20180118_092644.\>\""}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.725911912836817*^9, 3.7259119937843723`*^9}, {
+  3.72591203234597*^9, 
+  3.725912055679886*^9}},ExpressionUUID->"99e076df-f9e5-4f0e-b41e-\
+5e72bf0e8dbc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"dateTimeStamp", "[", "\"\<exop_20180118_092644.csv\>\"", "]"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.725912000439108*^9, 
+  3.7259120201430492`*^9}},ExpressionUUID->"e0d0c252-25ea-4e6f-94c3-\
+19aeea1de5bf"],
+
+Cell[BoxData["\<\"20180118_092644\"\>"], "Output",
+ CellChangeTimes->{{3.7259120370073957`*^9, 
+  3.725912059622364*^9}},ExpressionUUID->"b4f0b70f-11cd-4470-88bd-\
+9ef6e219f82c"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1468, 1010},
-WindowMargins->{{Automatic, 419}, {Automatic, 21}},
+WindowMargins->{{11, Automatic}, {Automatic, 43}},
 FrontEndVersion->"11.1 for Linux x86 (64-bit) (April 18, 2017)",
 StyleDefinitions->"Default.nb"
 ]
@@ -1654,10 +1731,10 @@ CellTagsIndex->{
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Info313725883677-6698600", 61675, 1636},
- {"Info353725883677-6698600", 61852, 1640},
- {"Info393725883678-6698600", 62029, 1644},
- {"Info433725883678-6698600", 62206, 1648}
+ {"Info313725883677-6698600", 64464, 1713},
+ {"Info353725883677-6698600", 64641, 1717},
+ {"Info393725883678-6698600", 64818, 1721},
+ {"Info433725883678-6698600", 64995, 1725}
  }
 *)
 (*NotebookFileOutline
@@ -1797,8 +1874,21 @@ Cell[55658, 1493, 2539, 55, 279, "Input", "ExpressionUUID" -> \
 Cell[58200, 1550, 2623, 58, 255, "Input", "ExpressionUUID" -> \
 "cd553d94-72da-40ed-8478-9ef406d5305d",
  InitializationCell->True],
-Cell[60826, 1610, 517, 12, 89, "Input", "ExpressionUUID" -> \
+Cell[60826, 1610, 517, 12, 56, "Input", "ExpressionUUID" -> \
 "0e32b960-ae5b-4d4d-94fd-6779cb02d247"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[61380, 1627, 157, 3, 65, "Section", "ExpressionUUID" -> \
+"9d42dc4f-a932-4e1c-99c8-afcc24d0a0fa"],
+Cell[61540, 1632, 2122, 51, 188, "Input", "ExpressionUUID" -> \
+"99e076df-f9e5-4f0e-b41e-5e72bf0e8dbc",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[63687, 1687, 253, 6, 34, "Input", "ExpressionUUID" -> \
+"e0d0c252-25ea-4e6f-94c3-19aeea1de5bf"],
+Cell[63943, 1695, 178, 3, 32, "Output", "ExpressionUUID" -> \
+"b4f0b70f-11cd-4470-88bd-9ef6e219f82c"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }
