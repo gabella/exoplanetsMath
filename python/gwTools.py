@@ -8,6 +8,9 @@
 # macstart = datetime.datetime(1904, 01, 01, 00, 00, 00 )
 # unixstart = datetime.datetime(1970, 01, 01, 00, 00, 00)
 #
+import numpy as np
+
+
 def dateTimeStamp():
     """Output the time NOW in string format 20180313_140932, i.e. YYYYMMDD_HHMMSS.
     Useful for naming files."""
@@ -28,6 +31,10 @@ def filterBlanks2(alist, filterInd):
         else:
             blankList.append( alist[ii] )
     return( (retList, blankList) )
+
+# If you need a function of ONE variable and want many PARAMETERS, make a class and give is a __call__() method, and
+# some ways to set the parameters.  See Python-ish examples.  Needed to use stock integrators which cannot use functions
+# of many variables.
 
 # Okay the calculation of all the Bessel function stuff, there are three versions I know of in the literature and the
 # simplified one in our paper.  All to calculate the g(n omega0, eccen) giving the POWER of the GW for that mode compared
@@ -129,6 +136,16 @@ def orbitalFreq(m1, m2, a):
     from scipy.constants import G, pi
     return(  1/(2*pi)*np.sqrt( G*(m1+m2)/a**3 )  )
 
+def redM(m1, m2):
+    """The reduced mass shows up in Kepler formulae, m1*m2/(m1+m2)
+    """
+    return( m1*m2/(m1+m2) )
+
+def totM(m1, m2):
+    """The total mass shows up in Kepler formulae, m1+m2
+    """
+    return( m1+m2 )
+
 def chirpM(m1, m2):
     """The chirp mass, sometimes used in the GW amplitude.
     """
@@ -147,7 +164,37 @@ def hh(nn, ee, m1, m2, a, dL):
     freq = orbitalFreq(m1, m2, a)  # In Hz.
     bb = 2*np.sqrt(32/5.)*chirpM(m1, m2)/nn/dL*np.power(2*pi*freq, 2/3)
     return(  bb*np.sqrt( ggSimp(nn, ee) )  )
+
+def fitEcc2N2(ecc):
+    """Find from Mathematcia fitted data, the maximum useful GW mode number, there the number n where the relative
+    amplitude g(n,e) returns to 1/20th the peak value of g(n,e).
+    Input the eccentricity and
+    Returns nMax.
+    """
+    aa = 9.521217921844688
+    bb = 0.5899926687166828
+    cc = -1.4130060483325517
+    dd = 0.8921018741263468
+    return( np.exp(aa*ecc)*( bb + cc*ecc + dd*ecc*ecc )  )
+
+def aNmax(ecc):
+    """Wrap the fitEcc2N2 function, to handle ecc=0, etc.
+    """
+    if ecc==0:
+        return(2)
+    else:
+        return(  np.floor(fitEcc2N2(ecc)+1)  )
     
+def aNmin(ecc):
+    """Check the ecc == 0 and return either 2 or 1.
+    """
+    if ecc == 0:
+        return(2)
+    else:
+        return(1)
+    
+
+
     
 def main():
     print('Test dateTimeStamp().')
