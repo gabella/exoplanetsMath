@@ -179,11 +179,12 @@ def fitEcc2N2(ecc):
 
 def aNmax(ecc):
     """Wrap the fitEcc2N2 function, to handle ecc=0, etc.
+    If e > 0 always have at least three modes.
     """
     if ecc==0:
         return(2)
     else:
-        return(  np.floor(fitEcc2N2(ecc)+1)  )
+        return(  np.max( [3, np.floor(fitEcc2N2(ecc)+1) ]  )  )
     
 def aNmin(ecc):
     """Check the ecc == 0 and return either 2 or 1.
