@@ -155,15 +155,16 @@ def chirpM(m1, m2):
 
 def hh(nn, ee, m1, m2, a, dL):
     """From Amaro-Seoane et al. 2010, the GW amplitude for GW mode nn in units of
-    omega0, the orbital frequency, eccentricity ee, binary masses m1 and m2, 
-    semi-major axis a, and distance to source dL.
+    the orbital frequency, eccentricity ee, binary masses m1 and m2, 
+    semi-major axis a, and distance to source dL.  Use SI units.
     Returns the GW amplitude for that frequency mode.
-    Amaro-Seoane et al. Eqn. (9), refs Finn and Thorne 1987.
+    Amaro-Seoane et al. Eqn. (9), refs Finn and Thorne 2000.
     """
     from scipy.constants import speed_of_light, gravitational_constant, c, G, pi
     freq = orbitalFreq(m1, m2, a)  # In Hz.
-    bb = 2*np.sqrt(32/5.)*chirpM(m1, m2)/nn/dL*np.power(2*pi*freq, 2/3)
-    return(  bb*np.sqrt( ggSimp(nn, ee) )  )
+    bb = 2*np.sqrt(32/5.)*chirpM(m1, m2)/nn/dL*np.power(2*pi*freq, 2/3)*np.sqrt( ggSimp(nn, ee) )
+    bb = np.power(G,5/3)/c**4 * bb  # Put on units to make it dimensionless.
+    return( bb )
 
 def fitEcc2N2(ecc):
     """Find from Mathematica fitted data, the maximum useful GW mode number, there the number n where the relative
