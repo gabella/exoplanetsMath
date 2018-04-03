@@ -1,19 +1,19 @@
 # Python - Workflow
 
-Python files that duplicate the Mathematica functions are in the python folder.
+Python files and notebooks to calculate the strain (modes if eccentric) from binary orbit paramters.  The Python files live in exoplanetsMath/python .
 
-* Start you Jupyter notebook however you do.
-* To update the exoplanet database from the CalTech database (not necessary to do very oftern), run the notebook
-ExopDBase.  Be sure to set the flag newImport to True, and back to False when you are done.  Will create a csv file
-in exoplanetsMath/dbases named something like exopP_20180314_095329.csv, where it is a template filename of
-exopP_XXX.csv where XXX is the datetime stamp YYYYMMDD_hhmmss.  Afterward the other notebooks will use this filename,
-you just need to put it in there.
-o Run the notebook GWStrainPlotsSNR to do the plot of the instantaneous GW modes for each exop vs the sqrt(time)
-decreased S_n(f) curve; notebook also does the summation for the Signal-to-Noise for each exoplanet and the grabs the
-few (10) brightests values.  Notebook is NOT increasing the h(m) strains in any way...maybe allowed but I do not see
-it.
+* Start your Jupyter notebook.
+* ExopDBase - Used to update a csv file of the CalTech exoplanets database.  Not necessary to do that often.
+  Set the flag newImport = True to update the database.  Set it to False when you are done.  Creates a csv file
+in exoplanetsMath/dbases named something like exopP_20180314_095329.csv .  Afterward the other notebooks will use this filename,
+you just copy it in there.
+* GWStrainPlotsSNR - does all the calculations using the functions defined in gwtools.py.  Specifically it calcs the instantaneous GW modes for each exop,
+uses saved data for the S_N(f) noise curve to calculate the Signal-to-Noise for each exoplanet.  All this data is appended to the main Panda dataframe.
+Makes a plot of the scaled S_N(f) curve for some integration time, to get approximate noise in dimensionless units, and plots the instantaneous strain for
+all the exoplanets that have enough data for the calculation.  Near the end a table is made of the top SNR exoplanets (very small, but take in toto maybe an
+annoyance to LISA measurements).
 
-# exoplanets - Mathematica and other files to calculate the gravitational wave strain
+#  Mathematica and other files to calculate the gravitational wave strain, moved to ./mathematica
 
 Some of the Mathematica files used in the calculation of gravitational waves from exoplanets.  Oh and as of today bleeding edge version 11.2.0.0 .
 Started GitHub repo on 20171010, by gabella.
@@ -43,14 +43,6 @@ In exoplanetsMath/  , this GitHub repository, there are the folders
   that they use for formatting for a publication.
 * python/
   I like python and ipython notebooks, so if I have any useful ones they are here.
-
-The main notebook GWExopECC2.nb works for me but is still very long and not transparent.  
-It creates several graphics in the pix directory.  It reads the exop CSV file from dbases
- unless you update that file by running the other notebook ExoDBase.nb .
-
-I create the publication plot variety of ways including using XMgrace
-on the data file(s) pix/tenYearsEccen.dat and pix/hfsRMS20bins.dat .
-
 
 
 
