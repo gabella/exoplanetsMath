@@ -26,7 +26,7 @@ maybe an annoyance to LISA measurements).  I have used the Larson
 site for this data http://www.srl.caltech.edu/~shane/sensitivity/ with
 the parameters Larm = 2.5e9 m, and defaults.  The new, better source
 is Neil Cornish and Travis Robson, arXiv  1803.01944, "The construction
-and use of LISA sensitivity curves."
+and use of LISA sensitivity curves," https://arxiv.org/abs/1803.01944 .
 
 #  Mathematica and other files to calculate the gravitational wave strain, moved to ./mathematica
 
