@@ -166,8 +166,8 @@ def hh(nn, ee, m1, m2, a, dL):
     return(  bb*np.sqrt( ggSimp(nn, ee) )  )
 
 def fitEcc2N2(ecc):
-    """Find from Mathematcia fitted data, the maximum useful GW mode number, there the number n where the relative
-    amplitude g(n,e) returns to 1/20th the peak value of g(n,e).
+    """Find from Mathematica fitted data, the maximum useful GW mode number, there the number n where the relative
+    amplitude g(n,e) returns to the absolute value 0.05.
     Input the eccentricity and
     Returns nMax.
     """
@@ -176,6 +176,7 @@ def fitEcc2N2(ecc):
     cc = -1.4130060483325517
     dd = 0.8921018741263468
     return( np.exp(aa*ecc)*( bb + cc*ecc + dd*ecc*ecc )  )
+#  9.521217921844688  0.5899926687166828   -1.4130060483325517  0.8921018741263468 copied from Mathematica .
 
 def aNmax(ecc):
     """Wrap the fitEcc2N2 function, to handle ecc=0, etc.
