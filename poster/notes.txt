@@ -1,0 +1,39 @@
+20180407 weg
+
+  Okay a lot of boiler plate:
+
+title, authors, abstract, motivation (??), theory with plots esp.
+h-dimless and g(n,e) and sqrt(g(n,e))/n , CalTech exop database,  figure
+explaining the pl_XXX and st_XXX, maybe, or labeled like theory formula for
+h(f), exop histograms, LISA noise curve S_n(f), integration time,
+results of individ modes (instantaneous modes) on noise vs freq, SNR table??,
+SNR formula, proposed work, and references.
+
+ I like the 4' wide by 3' high posters I have seen in the hall.  Also Fedex/
+Kinkos will not do larger.  Do other people to larger.  APS board is 44"x91":)
+
+ LibreOffice presentation for poster
+
+./pix for figures and background images
+  liking a wiggly pool with light caustics as the background, found one at
+http://www.cosmopoolscape.co.za/images/cosmo-background.jpg , check copyright
+likley by http://www.yahwebs.co.za/ the web designer, will ask...nicole
+deacon at the web site developer, sent email today at 1424.
+
+Other templates at https://dohliam.github.io/libreoffice-impress-templates/
+Modern Impress templates https://extensions.openoffice.org/node/1338
+  That is an old site!
+Also https://extensions.libreoffice.org/templates  select Presentation on right
+This blog as a list http://www.ahuka.com/?page_id=1116
+
+Worry later about this.  Can always change the master.
+
+Make your figures large, if poster is 48x36" , then assume bigger than 11x8.5,
+so maybe 16x10 ?  Try it.
+
+Font??
+
+Need a large vanderbilt Icon too!
+
+
+
