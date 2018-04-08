@@ -41,5 +41,8 @@ Keep text minimal!
 
 Should I repeat the Abstract?  Summarize?  other?
 
+PrettyPrints has decent looking rcParams right now.  Poster layour rough.
+Three cols a bad idea?
+
 
 
