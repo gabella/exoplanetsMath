@@ -197,7 +197,7 @@ def aNmin(ecc):
         return(1)
 
 
-def lisa_psd():
+def lisa_psd():  # Not Used, kwargs is a dictionary, handle below, call with lisa_psd(kind='linear'), etc.
     """Computes LISA sensitivity curve according to `Cornish and Robson 2018 <https://arxiv.org/pdf/1803.01944.pdf>`_ Their Eqn. (1) and (10) for P_oms (optical metrology noise) and (11) P_acc (test mass acceleration noise). Does NOT include S_c the confusion noise from white dwarf binaries.
     Returns an interpolating function for S_n() which has units "per Hz," so use result(my number) to call the function.  The frequency must be between 1e-9 and 10 Hz.
     """
@@ -215,7 +215,8 @@ def lisa_psd():
     R = 3./20./(1. + 6./10.*(freq/f_star)**2)  # unitless, Eqn. (9), the transfer function
     S_n = P_n/R
 
-    return spint.interp1d(freq, S_n)
+    return spint.interp1d(freq, S_n )  # This is good enough interp, see GWStrainPlotsSNR for linear interp in the 
+                                       # log-log-space, which is very linear.
 
     
 def main():
