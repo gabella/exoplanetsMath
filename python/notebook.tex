@@ -755,8 +755,8 @@ Compare my bigG  6.67408e-11  and scipy.constants  6.67408e-11
          \PY{n}{binmin} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}10}
          \PY{n}{binmax} \PY{o}{=} \PY{l+m+mf}{0.001}
          \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{100}
-         \PY{n}{binexp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
-         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{binexp}\PY{p}{)}
+         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
          
          \PY{n}{aData}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbFreqs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{mybins}\PY{p}{)}
          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanets with Orbital Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -933,8 +933,7 @@ histogrammed.}\label{all-gw-modes-freqs-histogrammed.}
          \PY{n}{binmin} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}10}
          \PY{n}{binmax} \PY{o}{=} \PY{l+m+mf}{0.001}
          \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{200}
-         \PY{n}{binexp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
-         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{binexp}\PY{p}{)}
+         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
          
          \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{myfreqs}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{mybins}\PY{p}{)}
              
@@ -975,6 +974,25 @@ Max GW frequency in Hz, NOT with GW modeset yet  0.0003827983949318424
 
     \end{Verbatim}
 
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{aa} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{lisa\PYZus{}psd}\PY{p}{(}\PY{p}{)}
+         \PY{n}{aa}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{12.3e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} S\PYZus{}n(f) per Hz}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} array([3.07258155e-40, 3.94217686e-09, 3.94225804e-21])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{n}{aa}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{12.3e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{]}\PY{p}{)} \PY{p}{)}  \PY{c+c1}{\PYZsh{} sqrt(S\PYZus{}n(f)) per root Hz}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} array([1.75287808e-20, 6.27867570e-05, 6.27874035e-11])
+\end{Verbatim}
+            
 
     % Add a bibliography block to the postdoc
     

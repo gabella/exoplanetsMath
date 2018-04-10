@@ -198,24 +198,27 @@ def aNmin(ecc):
 
 
 def lisa_psd():
-    '''Computes LISA sensitivity curve according to `Cornish and Robson 2018 <https://arxiv.org/pdf/1803.01944.pdf>`_
-    '''
+    """Computes LISA sensitivity curve according to `Cornish and Robson 2018 <https://arxiv.org/pdf/1803.01944.pdf>`_ Their Eqn. (1) and (10) for P_oms (optical metrology noise) and (11) P_acc (test mass acceleration noise). Does NOT include S_c the confusion noise from white dwarf binaries.
+    Returns an interpolating function for S_n() which has units "per Hz," so use result(my number) to call the function.  The frequency must be between 1e-9 and 10 Hz.
+    """
+    import scipy.interpolate as spint
+    
     freq = np.logspace(-9,1,10000)
     # note: freq [Hz], L_arm [m], S_n [Hz^-0.5]
-    L_arm = 2.5e9
-    f_star = 19.09*1e-3
+    L_arm = 2.5e9  # meters
+    f_star = 19.09*1e-3  # Hz
 
-    P_oms = (1.5e-11)**2*(1. + (2.0e-3/freq)**4)
-    P_acc = (3.0e-15)**2*(1. + (0.4e-3/freq)**2)*(1. + (freq/(8.0e-3))**4)
+    P_oms = (1.5e-11)**2*(1. + (2.0e-3/freq)**4)  # m^2/Hz, OMS = optical metrology noise
+    P_acc = (3.0e-15)**2*(1. + (0.4e-3/freq)**2)*(1. + (freq/(8.0e-3))**4) # m^2/Hz, single test mass acceleration noise
 
     P_n = (P_oms + 2.*(1. + np.cos(freq/f_star)**2)*P_acc/(2.*np.pi*freq)**4)/L_arm**2
-    R = 3./20./(1. + 6./10.*(freq/f_star)**2)
+    R = 3./20./(1. + 6./10.*(freq/f_star)**2)  # unitless, Eqn. (9), the transfer function
     S_n = P_n/R
 
-    return interp1d(freq, S_n)
+    return spint.interp1d(freq, S_n)
 
     
- main():
+def main():
     print('Test dateTimeStamp().')
     print( dateTimeStamp() )
     print()
