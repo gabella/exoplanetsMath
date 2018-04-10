@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{PrettyPlotsGWStrainEtc}
+    \title{GWStrainPlotsSNR}
     
     
     
@@ -280,11 +280,12 @@
     
 
     
-    \section{Excerpts of GWStrainPlotsSNR for pretty plots for poster and
-paper}\label{excerpts-of-gwstrainplotssnr-for-pretty-plots-for-poster-and-paper}
+    \section{Calculate the GW modes for each exoplanet that has the needed
+parameters in the
+dbase.}\label{calculate-the-gw-modes-for-each-exoplanet-that-has-the-needed-parameters-in-the-dbase.}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Started WEG  20180408. }
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Started WEG  20180320. }
         \PY{c+c1}{\PYZsh{} See the gwtools.py which has utility and strain functions in it}
         \PY{c+c1}{\PYZsh{} and ExopDBase notebook that can download a new csv exop database.}
 \end{Verbatim}
@@ -318,114 +319,80 @@ sensitivy curves," https://arxiv.org/abs/1803.01944
         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
         \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
         \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{interpolate} \PY{k}{as} \PY{n+nn}{spint}
-        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sea}
 \end{Verbatim}
 
 
-    \subsection{For some pretty print advice from Astro colleagues and
-online
-pointers.}\label{for-some-pretty-print-advice-from-astro-colleagues-and-online-pointers.}
+    \section{CalTech Exop Database (from ExopDBase
+notebook)}\label{caltech-exop-database-from-exopdbase-notebook}
 
-\subsection{From
-https://matplotlib.org/users/customizing.html}\label{from-httpsmatplotlib.orguserscustomizing.html}
-
-If following is in Matplotlib config dir (run
-matplotlib.get\_configdir() ), or maybe in
-\textasciitilde{}/.config/matplotlib create
-mpl\_configdir/stylelib/presentation.mplstyle with
-
-axes.titlesize : 24
-
-axes.labelsize : 20
-
-lines.linewidth : 3
-
-lines.markersize : 10
-
-xtick.labelsize : 16
-
-ytick.labelsize : 16
-
-Then use in the script plt.style.use('presentation')
+    \subsection{Update or not from the CalTech database. Directories for the
+dbase and to save
+plots.}\label{update-or-not-from-the-caltech-database.-directories-for-the-dbase-and-to-save-plots.}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(} \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{available} \PY{p}{)}
-        \PY{c+c1}{\PYZsh{}plt.style.use(\PYZsq{}ggplot\PYZsq{})}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-['\_classic\_test', 'dark\_background', 'ggplot', 'seaborn-notebook', 'seaborn-paper', 'seaborn-ticks', 'fast', 'seaborn', 'bmh', 'seaborn-pastel', 'seaborn-dark-palette', 'seaborn-muted', 'seaborn-white', 'seaborn-bright', 'seaborn-talk', 'seaborn-poster', 'Solarize\_Light2', 'seaborn-whitegrid', 'seaborn-darkgrid', 'seaborn-dark', 'seaborn-colorblind', 'grayscale', 'fivethirtyeight', 'classic', 'seaborn-deep']
-
-    \end{Verbatim}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{if} \PY{l+m+mi}{0}\PY{p}{:}
-            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{24}\PY{p}{\PYZcb{}}\PY{p}{)}
-            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{20}\PY{p}{\PYZcb{}}\PY{p}{)}
-            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}
-            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)}
-            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick.labelsize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
-            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick.labelsize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} https://matplotlib.org/users/customizing.html}
-        \PY{c+c1}{\PYZsh{} The font.size property is the default font size for text, given in pts.}
-        \PY{c+c1}{\PYZsh{} 10 pt is the standard value.}
-        \PY{c+c1}{\PYZsh{}}
-        \PY{c+c1}{\PYZsh{}font.family         : sans\PYZhy{}serif}
-        \PY{c+c1}{\PYZsh{}font.style          : normal}
-        \PY{c+c1}{\PYZsh{}font.variant        : normal}
-        \PY{c+c1}{\PYZsh{}font.weight         : medium}
-        \PY{c+c1}{\PYZsh{}font.stretch        : normal}
-        \PY{c+c1}{\PYZsh{} note that font.size controls default text sizes.  To configure}
-        \PY{c+c1}{\PYZsh{} special text sizes tick labels, axes, labels, title, etc, see the rc}
-        \PY{c+c1}{\PYZsh{} settings for axes and ticks. Special text sizes can be defined}
-        \PY{c+c1}{\PYZsh{} relative to font.size, using the following values: xx\PYZhy{}small, x\PYZhy{}small,}
-        \PY{c+c1}{\PYZsh{} small, medium, large, x\PYZhy{}large, xx\PYZhy{}large, larger, or smaller}
-        \PY{c+c1}{\PYZsh{}font.size           : 10.0}
-        \PY{c+c1}{\PYZsh{}font.serif          : DejaVu Serif, Bitstream Vera Serif, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Times New Roman, Times, Palatino, Charter, serif}
-        \PY{c+c1}{\PYZsh{}font.sans\PYZhy{}serif     : DejaVu Sans, Bitstream Vera Sans, Lucida Grande, Verdana, Geneva, Lucid, Arial, Helvetica, Avant Garde, sans\PYZhy{}serif}
-        \PY{c+c1}{\PYZsh{}font.cursive        : Apple Chancery, Textile, Zapf Chancery, Sand, Script MT, Felipa, cursive}
-        \PY{c+c1}{\PYZsh{}font.fantasy        : Comic Sans MS, Chicago, Charcoal, Impact, Western, Humor Sans, xkcd, fantasy}
-        \PY{c+c1}{\PYZsh{}font.monospace      : DejaVu Sans Mono, Bitstream Vera Sans Mono, Andale Mono, Nimbus Mono L, Courier New, Courier, Fixed, Terminal, monospace}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Plot defaults.}
-        \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{24.0}\PY{p}{,}
-                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}  \PY{c+c1}{\PYZsh{} (14,10)}
-                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
-        \PY{c+c1}{\PYZsh{}aa = 18.0}
-        \PY{c+c1}{\PYZsh{}params = \PYZob{}\PYZsq{}legend.fontsize\PYZsq{}: aa,}
-        \PY{c+c1}{\PYZsh{}          \PYZsq{}figure.figsize\PYZsq{}: (14, 10),}
-        \PY{c+c1}{\PYZsh{}         \PYZsq{}axes.labelsize\PYZsq{}: aa,}
-        \PY{c+c1}{\PYZsh{}         \PYZsq{}axes.titlesize\PYZsq{}: aa,}
-        \PY{c+c1}{\PYZsh{}         \PYZsq{}xtick.labelsize\PYZsq{}: aa,}
-        \PY{c+c1}{\PYZsh{}         \PYZsq{}ytick.labelsize\PYZsq{}: aa\PYZcb{}}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{params}\PY{p}{)}
-        \PY{c+c1}{\PYZsh{}print(mpl.rcParams)}
-        \PY{n}{savePlot} \PY{o}{=} \PY{k+kc}{False}
-\end{Verbatim}
-
-
-    \subsection{Read the dbase saved in GWStrainPlotsSNR or other
-method.}\label{read-the-dbase-saved-in-gwstrainplotssnr-or-other-method.}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{thisDir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} This is the /python subdirectory.}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{thisDir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} This is the /python subdirectory.}
         \PY{n}{csvDir} \PY{o}{=} \PY{n}{thisDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/../dbases/}\PY{l+s+s1}{\PYZsq{}}  \PY{c+c1}{\PYZsh{} Will the /../ work on non\PYZhy{}Unices?}
         \PY{n}{pixDir} \PY{o}{=} \PY{n}{thisDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/../pix/}\PY{l+s+s1}{\PYZsq{}}
-        \PY{n}{csvFileName} \PY{o}{=} \PY{n}{csvDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exopP\PYZus{}20180408\PYZus{}141319.csv}\PY{l+s+s1}{\PYZsq{}} 
+\end{Verbatim}
+
+
+    \subsection{Search string, might want RA and DEC
+also.}\label{search-string-might-want-ra-and-dec-also.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} The search URL and search string/request. }
+        \PY{n}{exopURL} \PY{o}{=} \PYZbs{}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://exoplanetarchive.ipac.caltech.edu/cgi\PYZhy{}bin/nstedAPI/nph\PYZhy{}}\PY{l+s+se}{\PYZbs{}}
+        \PY{l+s+s2}{nstedAPI?}\PY{l+s+s2}{\PYZdq{}} \PY{p}{;}
         
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Using database file }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{csvFileName}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}searchString = \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}\PYZdq{}table=exoplanets\PYZam{}select=pl\PYZus{}hostname,ra,dec\PYZam{}order=dec\PYZam{}format=CSV\PYZdq{};*)}
+        
+        \PY{c+c1}{\PYZsh{} The Below does NOT have right ascension and declination.  Will likely want them for further work.}
+        \PY{c+c1}{\PYZsh{} Can add later in its own Panda dataframe and/or merge into the main one in GWStrainPlotsSNR.}
+        \PY{c+c1}{\PYZsh{} variables come from NASA Exoplanet Archive, the keywords are defined here: }
+        \PY{c+c1}{\PYZsh{}https://exoplanetarchive.ipac.caltech.edu/docs/API\PYZus{}exoplanet\PYZus{}columns.html }
+        \PY{n}{searchString} \PY{o}{=} \PYZbs{}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{table=exoplanets\PYZam{}select=pl\PYZus{}hostname,pl\PYZus{}letter,pl\PYZus{}discmethod,pl\PYZus{}}\PY{l+s+se}{\PYZbs{}}
+        \PY{l+s+s2}{orbper,pl\PYZus{}orbsmax,pl\PYZus{}orbeccen,pl\PYZus{}bmassj,st\PYZus{}dist,st\PYZus{}mass,rowupdate,st\PYZus{}}\PY{l+s+se}{\PYZbs{}}
+        \PY{l+s+s2}{plx\PYZam{}order=dec\PYZam{}format=CSV}\PY{l+s+s2}{\PYZdq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    \subsection{Flags for fresh import and for saving the CSV
+file.}\label{flags-for-fresh-import-and-for-saving-the-csv-file.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Set to True to re\PYZhy{}read the EXop Dbase from Caltech.  False to use csvFname below.}
+        \PY{n}{newImport} \PY{o}{=} \PY{k+kc}{False}\PY{p}{;}
+        \PY{c+c1}{\PYZsh{}newImport = False;}
+        \PY{n}{saveFile} \PY{o}{=} \PY{k+kc}{True}\PY{p}{;}\PY{c+c1}{\PYZsh{} Future work, when we do NOT want an intermediate file here would set to False, but needs coding.}
+        \PY{c+c1}{\PYZsh{}saveFile = False;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} csv file below was downloaded earlier with code below.  newImport = False to use it.  Or new csv will be}
+        \PY{c+c1}{\PYZsh{} created.  This takes a few seconds.}
+        \PY{n}{csvFileName} \PY{o}{=} \PY{n}{csvDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exopP\PYZus{}20180408\PYZus{}141319.csv}\PY{l+s+s1}{\PYZsq{}}  
+        \PY{k}{if} \PY{n}{newImport} \PY{o+ow}{and} \PY{n}{saveFile}\PY{p}{:}
+            \PY{n}{myDateTimeStamp} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{dateTimeStamp}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} See the gwtools.py file with this and other functions in it.}
+            \PY{n}{csvFileName} \PY{o}{=} \PY{n}{csvDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exopP\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{myDateTimeStamp} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.csv}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{ofile} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{csvFname}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{with} \PY{n}{ul}\PY{o}{.}\PY{n}{request}\PY{o}{.}\PY{n}{urlopen}\PY{p}{(}\PY{n}{exopURL} \PY{o}{+} \PY{n}{searchString}\PY{p}{)} \PY{k}{as} \PY{n}{response}\PY{p}{:}
+                \PY{k}{for} \PY{n}{aline} \PY{o+ow}{in} \PY{n}{response}\PY{p}{:}
+                    \PY{n}{ofile}\PY{o}{.}\PY{n}{write}\PY{p}{(} \PY{n}{aline}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{p}{)}  \PY{c+c1}{\PYZsh{} byte\PYZhy{}string needs to be decoded. utf\PYZhy{}8 is common encoding}
+            \PY{n}{ofile}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Saved database file }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{csvFileName}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Read the CSV file and drop the rows/exops with NaN in the
+important fields. See ExopDBase.ipynb and re-run it for updating the
+dbase.}\label{read-the-csv-file-and-drop-the-rowsexops-with-nan-in-the-important-fields.-see-exopdbase.ipynb-and-re-run-it-for-updating-the-dbase.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Using database file }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{csvFileName}\PY{p}{)}
         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{csvFileName}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{ifile}\PY{p}{:}
             \PY{n+nb}{print}\PY{p}{(}\PY{n}{ifile}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ifile}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)} \PY{p}{)}  \PY{c+c1}{\PYZsh{}Print a couple of lines and reset the pointer.}
         
@@ -446,7 +413,8 @@ pl\_hostname,pl\_letter,pl\_discmethod,pl\_orbper,pl\_orbsmax,pl\_orbeccen,pl\_b
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{dbData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{dbData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}  \PY{c+c1}{\PYZsh{} NaN\PYZsq{}s show up when the field has no data.  Need both masses, eccentricity, semimajor axis, }
+        \PY{c+c1}{\PYZsh{} and distance.}
 \end{Verbatim}
 
 
@@ -457,6 +425,11 @@ pl\_hostname,pl\_letter,pl\_discmethod,pl\_orbper,pl\_orbsmax,pl\_orbeccen,pl\_b
         2  HD 137388 A         b  Radial Velocity   330.000000      0.8900   
         3      GJ 3021         b  Radial Velocity   133.710000      0.4900   
         4     HD 63454         b  Radial Velocity     2.818049      0.0368   
+        5    HD 212301         b  Radial Velocity     2.245715      0.0360   
+        6      CHXR 73         b          Imaging          NaN    210.0000   
+        7       CT Cha         b          Imaging          NaN    440.0000   
+        8    HD 196067         b  Radial Velocity  3638.000000      5.0200   
+        9     HD 68402         b  Radial Velocity  1103.000000      2.1800   
         
            pl\_orbeccen  pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx  
         0       0.5300      5.100    35.87     0.99  2014-05-14   27.88  
@@ -464,29 +437,28 @@ pl\_hostname,pl\_letter,pl\_discmethod,pl\_orbper,pl\_orbsmax,pl\_orbeccen,pl\_b
         2       0.3600      0.223    38.45     0.86  2014-05-14   26.01  
         3       0.5110      3.370    17.62     0.90  2014-05-14   56.76  
         4       0.0000      0.398    35.80     0.84  2015-03-26   27.93  
+        5       0.0000      0.450    52.72     1.27  2014-05-14   18.97  
+        6          NaN     12.569      NaN     0.35  2014-05-14     NaN  
+        7          NaN     17.000   165.00      NaN  2014-05-14     NaN  
+        8       0.6600      6.900    43.57     1.29  2014-05-14   22.95  
+        9       0.0300      3.070    78.00     1.12  2016-11-10   12.82  
 \end{Verbatim}
             
-    \subsection{Drop the NaNs}\label{drop-the-nans}
+    \subsection{Drop the exops/rows with NaN (missing values) in the
+following
+fields:}\label{drop-the-exopsrows-with-nan-missing-values-in-the-following-fields}
+
+\subsubsection{pl\_orbeccen (eccentricity), pl\_orbper (orbital period),
+pl\_obsmax (semimajor axis), pl\_bmassj (planet mass), st\_dist
+(distance to host star), st\_mass (stellar
+mass)}\label{pl_orbeccen-eccentricity-pl_orbper-orbital-period-pl_obsmax-semimajor-axis-pl_bmassj-planet-mass-st_dist-distance-to-host-star-st_mass-stellar-mass}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}  called aData because I expected a bData, etc.}
-        \PY{c+c1}{\PYZsh{}}
-        \PY{c+c1}{\PYZsh{} \PYZob{}\PYZdq{}pl\PYZus{}hostname\PYZdq{}, \PYZdq{}pl\PYZus{}letter\PYZdq{}, \PYZdq{}pl\PYZus{}discmethod\PYZdq{}, \PYZdq{}pl\PYZus{}orbper\PYZdq{}, \PYZbs{}}
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} \PYZob{}\PYZdq{}pl\PYZus{}hostname\PYZdq{}, \PYZdq{}pl\PYZus{}letter\PYZdq{}, \PYZdq{}pl\PYZus{}discmethod\PYZdq{}, \PYZdq{}pl\PYZus{}orbper\PYZdq{}, \PYZbs{}}
         \PY{c+c1}{\PYZsh{} \PYZdq{}pl\PYZus{}orbsmax\PYZdq{}, \PYZdq{}pl\PYZus{}orbeccen\PYZdq{}, \PYZdq{}pl\PYZus{}bmassj\PYZdq{}, \PYZdq{}st\PYZus{}dist\PYZdq{}, \PYZdq{}st\PYZus{}mass\PYZdq{}, \PYZbs{}}
         \PY{c+c1}{\PYZsh{} \PYZdq{}rowupdate\PYZdq{}, \PYZdq{}st\PYZus{}plx\PYZdq{}\PYZcb{}}
         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length all data, dbData }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dbData}\PY{p}{)} \PY{p}{)}
-        \PY{n}{aData} \PY{o}{=} \PY{n}{dbData}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
-        
-        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with st\PYZus{}mass}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
-        
-        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}bmassj}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
-        
-        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with st\PYZus{}dist}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
-        
-        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{aData} \PY{o}{=} \PY{n}{dbData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}orbeccen}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
         
         \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
@@ -494,207 +466,43 @@ pl\_hostname,pl\_letter,pl\_discmethod,pl\_orbper,pl\_orbsmax,pl\_orbeccen,pl\_b
         
         \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbsmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}orbsmax}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}bmassj}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with st\PYZus{}dist}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with st\PYZus{}mass}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Length all data, dbData  3711
-Length with st\_mass	 3418
-Length with pl\_bmassj	 1344
-Length with st\_dist	 1089
-Length with pl\_orbeccen	 933
-Length with pl\_orbper	 933
-Length with pl\_orbsmax	 910
+Length with pl\_orbeccen	 1172
+Length with pl\_orbper	 1172
+Length with pl\_orbsmax	 1107
+Length with pl\_bmassj	 1027
+Length with st\_dist	 920
+Length with st\_mass	 910
 
     \end{Verbatim}
 
-    \subsection{\texorpdfstring{That gets the data in, several plots of just
-of the functions \(g(n,e)\) and
-\(\sqrt(g(n,e))/n\)}{That gets the data in, several plots of just of the functions g(n,e) and \textbackslash{}sqrt(g(n,e))/n}}\label{that-gets-the-data-in-several-plots-of-just-of-the-functions-gne-and-sqrtgnen}
+    \subsection{So aData is the working exoplanet data frame after
+filtering, as a Panda DataFrame. Later should consider filling in
+missing data with Kepler or other
+calculations.}\label{so-adata-is-the-working-exoplanet-data-frame-after-filtering-as-a-panda-dataframe.-later-should-consider-filling-in-missing-data-with-kepler-or-other-calculations.}
 
-    \subsection{The functions/theory}\label{the-functionstheory}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Use the gwtools.py definitions.}
-         
-         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
-         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{} eccentricities, Peters and Mathews, 0.2, 0.5, 0.7  add 0.9??}
-         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
-         \PY{n}{yy} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{)}
-         
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency mode, n = \PYZdl{}f/f\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elliptic GW power/circular,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{averaged over full orbit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
-         
-         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
-         \PY{n}{y2} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
-         \PY{n}{y3} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x3}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x3}\PY{p}{,} \PY{n}{y3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} AFter the plot calls, to get labels.}
-         
-         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
-             \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../poster/pix/plot\PYZus{}g\PYZus{}n\PYZus{}e.eps\PYZsq{})  \PYZsh{} Both eps and svg seem to make good PDFs of poster.}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/plot\PYZus{}gne.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \subsection{\texorpdfstring{Plot \(\sqrt{g(n,e)}/n\) proportional to
-\(h_{n}\)
-dimensionless}{Plot \textbackslash{}sqrt\{g(n,e)\}/n proportional to h\_\{n\} dimensionless}}\label{plot-sqrtgnen-proportional-to-h_n-dimensionless}
+    \subsection{Physical Constants, made explicit here. The CalTech exop
+dbase has an FAQ on the units they use for each parameter. General URL
+https://exoplanetarchive.ipac.caltech.edu/ and the one for units under
+Support\textgreater{}Documentation\textgreater{}Table Column
+Definitions\textgreater{} Confirmed Planets
+https://exoplanetarchive.ipac.caltech.edu/applications/DocSet/index.html?doctree=/docs/docmenu.xml\&startdoc=1}\label{physical-constants-made-explicit-here.-the-caltech-exop-dbase-has-an-faq-on-the-units-they-use-for-each-parameter.-general-url-httpsexoplanetarchive.ipac.caltech.edu-and-the-one-for-units-under-supportdocumentationtable-column-definitions-confirmed-planets-httpsexoplanetarchive.ipac.caltech.eduapplicationsdocsetindex.htmldoctreedocsdocmenu.xmlstartdoc1}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Use the gwtools.py definitions.}
-         
-         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
-         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{} eccentricities, Peters and Mathews, 0.2, 0.5, 0.7  add 0.9??}
-         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
-         \PY{n}{yy} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{)} \PY{p}{)} \PY{p}{]}
-         
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency mode, n = \PYZdl{}f/f\PYZus{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensionless strain, \PYZdl{}h\PYZus{}}\PY{l+s+si}{\PYZob{}n\PYZcb{}}\PY{l+s+s1}{(f = n}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{,f\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
-         \PY{n}{y2} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{)} \PY{p}{)} \PY{p}{]}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} AFter the plot calls, to get labels.}
-         
-         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
-             \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../poster/pix/plot\PYZus{}g\PYZus{}n\PYZus{}e.eps\PYZsq{})  \PYZsh{} Both eps and svg seem to make good PDFs of poster.}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/plot\PYZus{}h\PYZus{}as\PYZus{}gne.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Use the gwtools.py definitions.}
-         
-         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
-         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{} eccentricities, Peters and Mathews, 0.2, 0.5, 0.7  add 0.9??}
-         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
-         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{xx}\PY{p}{)}
-         \PY{n}{yy} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{)} \PY{p}{)} \PY{p}{]}
-         
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency mode, n = \PYZdl{}f/f\PYZus{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensionless strain, \PYZdl{}h\PYZus{}}\PY{l+s+si}{\PYZob{}n\PYZcb{}}\PY{l+s+s1}{(f = n}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{,f\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{ax}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{}x2 = np.arange(1, 25, 0.1)}
-         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
-         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{x2}\PY{p}{)}
-         \PY{n}{y2} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{)} \PY{p}{)} \PY{p}{]}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} AFter the plot calls, to get labels.}
-         
-         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
-             \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../poster/pix/plot\PYZus{}g\PYZus{}n\PYZus{}e.eps\PYZsq{})  \PYZsh{} Both eps and svg seem to make good PDFs of poster.}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/plot\PYZus{}h\PYZus{}as\PYZus{}gne\PYZus{}loglog.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \subsection{Histograms of NASA Archive, AFTER the
-filter}\label{histograms-of-nasa-archive-after-the-filter}
-
-\subsection{A list of the columns to histogram, from ExopDBaseHistos
-notebook}\label{a-list-of-the-columns-to-histogram-from-exopdbasehistos-notebook}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{histCols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbsmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{titles} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eccentricity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orbital Period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SemiMajor Axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Planet Mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Stellar Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Stellar Mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-         \PY{n}{xlabels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eccentricity, e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbital period (d)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{semi\PYZhy{}major axis (au)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{planet mass (M\PYZus{}J)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
-                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stellar distance (pc)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stellar mass (M\PYZus{}sol)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{figs}\PY{o}{=}\PY{p}{[}\PY{p}{]}
-         \PY{n}{axs}\PY{o}{=}\PY{p}{[}\PY{p}{]}
-         \PY{k}{for} \PY{n}{icol}\PY{p}{,} \PY{n}{ititle}\PY{p}{,} \PY{n}{ixlabel} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{histCols}\PY{p}{,} \PY{n}{titles}\PY{p}{,} \PY{n}{xlabels}\PY{p}{)}\PY{p}{:}
-             \PY{c+c1}{\PYZsh{} time to get fancy}
-             \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
-             \PY{n}{figs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{afig} \PY{p}{)}
-             \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
-             \PY{n}{axs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{ax} \PY{p}{)}
-             \PY{n}{aData}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{icol}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
-             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanets with }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{ititle}\PY{p}{)}
-             \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
-             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{n}{ixlabel}\PY{p}{)}
-             \PY{k}{if} \PY{n}{savePlot} \PY{o+ow}{and} \PY{n}{ititle} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eccentricity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{c+c1}{\PYZsh{} Save the figure}
-                 \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopEccenHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} LibreOffice import SVG histos / bar charts badly.}
-                 \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopEccenHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} PNGs seem okay, SVGs continue the blue bar below the axis.}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_2.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_3.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_4.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_5.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \subsection{Chirp mass histo}\label{chirp-mass-histo}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Some scipy.constants for comparison mostly.}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Some scipy.constants for comparison mostly.}
          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{constants} \PY{k}{import} \PY{n}{speed\PYZus{}of\PYZus{}light}\PY{p}{,} \PY{n}{gravitational\PYZus{}constant}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{n}{G}\PY{p}{,} \PY{n}{pi}
          
          \PY{n}{massSun} \PY{o}{=} \PY{l+m+mf}{1.989e30}\PY{p}{;} \PY{c+c1}{\PYZsh{}(*kg *)}
@@ -731,109 +539,173 @@ Compare my bigG  6.67408e-11  and scipy.constants  6.67408e-11
 
     \end{Verbatim}
 
-    \subsection{Orbital frequency}\label{orbital-frequency}
+    \subsection{Calculate GW amplitudes for each exoplanet...at
+Earth...assumes source
+z=0.}\label{calculate-gw-amplitudes-for-each-exoplanet...at-earth...assumes-source-z0.}
+
+    \subsubsection{\texorpdfstring{Make a plot of the maximum strain mode
+number versus eccentricity. This "n-star" is used to truncate the number
+of GW modes used. The n-star is chosen such that g(n-star, e) = 0.05 ,
+note that g(2,e=0) = 1 and the maximum goes up from there. Also for
+small eccentricities but e\$\ne\$0, always use modeset {[}1,2,3{]},
+though n=2 is the strongest usually. For e=0, use just modeset
+{[}2{]}.}{Make a plot of the maximum strain mode number versus eccentricity. This "n-star" is used to truncate the number of GW modes used. The n-star is chosen such that g(n-star, e) = 0.05 , note that g(2,e=0) = 1 and the maximum goes up from there. Also for small eccentricities but e\$\$0, always use modeset {[}1,2,3{]}, though n=2 is the strongest usually. For e=0, use just modeset {[}2{]}.}}\label{make-a-plot-of-the-maximum-strain-mode-number-versus-eccentricity.-this-n-star-is-used-to-truncate-the-number-of-gw-modes-used.-the-n-star-is-chosen-such-that-gn-star-e-0.05-note-that-g2e0-1-and-the-maximum-goes-up-from-there.-also-for-small-eccentricities-but-e0-always-use-modeset-123-though-n2-is-the-strongest-usually.-for-e0-use-just-modeset-2.}
+
+    \subsubsection{Fit and Check of Fit for
+n-star(eccentricity).}\label{fit-and-check-of-fit-for-n-stareccentricity.}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} append orbital frequency in Hz!}
-         \PY{n}{orbFreqs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-             \PY{n}{aa} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{secsDay} \PY{p}{)}
-             \PY{n}{orbFreqs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{aa} \PY{p}{)}
-             
-         
-         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbFreqs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{orbFreqs}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZhy{}star(ecc) comes from a fit done in mathematica, see gwtools.py, aNmax(ecc) function.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ecc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{0.99}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{nstar} \PY{o}{=} \PY{p}{[} \PY{n}{gwt}\PY{o}{.}\PY{n}{aNmax}\PY{p}{(}\PY{n}{uu}\PY{p}{)} \PY{k}{for} \PY{n}{uu} \PY{o+ow}{in} \PY{n}{ecc} \PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ecc}\PY{p}{,} \PY{n}{nstar}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The n\PYZhy{}star, where the g(n,e) curve}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ comes back to the value 0.05.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} time to get fancy}
-         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
-         
-         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{} Log plot need even bins in Log\PYZhy{}Space??}
-         \PY{n}{binmin} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}10}
-         \PY{n}{binmax} \PY{o}{=} \PY{l+m+mf}{0.001}
-         \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{100}
-         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
-         
-         
-         \PY{n}{aData}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbFreqs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{mybins}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanets with Orbital Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}ylim( (0.7, 2000) )}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f, Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         
-         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopOrbFreqsHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopOrbFreqsHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{}Print the max orb freq}
-         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Round trip time for LISA lasers along leg }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{o}{/}\PY{n}{cee}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ secs,  and frequency of }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-               \PY{n}{cee}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Hz.}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orbital frequency in Hz, NOT with GW modeset yet }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbFreqs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{p}{)} \PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-Round trip time for LISA lasers along leg  16.6782047599076  secs,  and frequency of  0.0599584916  Hz.
-Orbital frequency in Hz, NOT with GW modeset yet  0.0001275994649772808
+n-star(ecc) comes from a fit done in mathematica, see gwtools.py, aNmax(ecc) function.
 
     \end{Verbatim}
 
-    \subsection{Chrip Mass histo}\label{chrip-mass-histo}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} append chirp mass to }
-         \PY{n}{chirpMs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-             \PY{n}{m1} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{massSun}
-             \PY{n}{m2} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{massJ}
-             \PY{n}{aa} \PY{o}{=} \PY{p}{(}\PY{n}{m1}\PY{o}{*}\PY{n}{m2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{m1}\PY{o}{+}\PY{n}{m2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{n}{massSun}
-             \PY{n}{chirpMs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{aa} \PY{p}{)}
-             
-         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chirpMassMsols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{chirpMs}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} time to get fancy}
-         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
-         
-         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
-         
-         \PY{n}{aData}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chirpMassMsols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanets with chirp mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chirp Mass, Msol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopChirpMHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopChirpMHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \subsection{Append the rows I need for the modeset and GW freqs
-histo}\label{append-the-rows-i-need-for-the-modeset-and-gw-freqs-histo}
+    \subsubsection{\texorpdfstring{Check the above function for some
+eccentricity by plotting \(g(n,e)\) versus \(0.05\)
+.}{Check the above function for some eccentricity by plotting g(n,e) versus 0.05 .}}\label{check-the-above-function-for-some-eccentricity-by-plotting-gne-versus-0.05-.}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Actually append n\PYZus{}min, n\PYZus{}max, numpy array of GW strains h.}
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{ecc} \PY{o}{=} \PY{l+m+mf}{0.9} \PY{c+c1}{\PYZsh{} Eccentricity}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For example, look at the g(n,e) curve for ecc = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ecc}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The n\PYZhy{}star is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{aNmax}\PY{p}{(}\PY{n}{ecc}\PY{p}{)} \PY{p}{)}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} full g(n,e) curve}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{n}{mmin} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{mmax} \PY{o}{=} \PY{l+m+mi}{250}
+         \PY{n}{modes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{mmin}\PY{p}{,}\PY{n}{mmax}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{gne} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{modes}\PY{p}{,} \PY{n}{ecc}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{modes}\PY{p}{,} \PY{n}{gne}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} The line at 1/20th max is...}
+         \PY{n}{yval} \PY{o}{=} \PY{l+m+mf}{0.05}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(} \PY{n}{gne} \PY{p}{)} \PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{p}{[}\PY{n}{mmin}\PY{p}{,} \PY{n}{mmax}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{yval}\PY{p}{,} \PY{n}{yval}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ecc = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{, g(n,e), and line at 0.05 }\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{ecc}\PY{p}{)} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} close up}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{n}{mmin} \PY{o}{=} \PY{l+m+mi}{200}
+         \PY{n}{mmax} \PY{o}{=} \PY{l+m+mi}{250}
+         \PY{n}{modes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{mmin}\PY{p}{,}\PY{n}{mmax}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{gne} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{modes}\PY{p}{,} \PY{n}{ecc}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{modes}\PY{p}{,} \PY{n}{gne}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} The line at 1/20th max is...}
+         \PY{n}{yval} \PY{o}{=} \PY{l+m+mf}{0.05}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{p}{[}\PY{n}{mmin}\PY{p}{,} \PY{n}{mmax}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{yval}\PY{p}{,} \PY{n}{yval}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ecc = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{, g(n,e), and line at 0.05 }\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{ecc}\PY{p}{)} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mi}{215}\PY{p}{,}\PY{l+m+mf}{0.06}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZhy{}star}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For example, look at the g(n,e) curve for ecc =  0.9
+The n-star is  216.0
+max is  17.395364810603994
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Create a numpy array of GW strain amplitudes for that planet
+and append to the
+table.}\label{create-a-numpy-array-of-gw-strain-amplitudes-for-that-planet-and-append-to-the-table.}
+
+    Using the formula from Amaro-Seoane et al. reference, Eqn. (9)
+\[ h_{n} = 2 \sqrt{\frac{32}{5}} \frac{ {\frak M}^{5/3} }{{\mathbf n}\,d_{L}} \big( 2\pi f_{r} \big) \sqrt{ \mathbf {g(n,e)} }\]
+where \(e\) is the eccentricity, \(n\) is the mode number, \({\frak M}\)
+is the chirp mass \(M_{1}^{3/5}M_{2}^{3/5}/(M_{1}+M_{2})^{1/5}\),
+\(d = d_{L}/(1+z)\), and \(f_{r}\) is the orbital frequency, so the mode
+frequency is \(f = f_{r}\,n\) for \(n=(1,2,3...)\). I like the chirp
+mass as \(\mu^{3/5} M^{2/5}\) with reduced mass \(\mu\) and total mass
+\(M\) for the binary.
+
+The above is found in gwtools.py as hh(nn, ee, m1, m2, a, dL).
+
+Does not render the above perfectly. Looks like a font problem on the
+square root. Otherwise okay.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{help}\PY{p}{(}\PY{n}{gwt}\PY{o}{.}\PY{n}{hh}\PY{p}{)}  \PY{c+c1}{\PYZsh{} I do not use this below!!}
+         \PY{n}{help}\PY{p}{(}\PY{n}{gwt}\PY{o}{.}\PY{n}{orbitalFreq}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Help on function hh in module gwTools:
+
+hh(nn, ee, m1, m2, a, dL)
+    From Amaro-Seoane et al. 2010, the GW amplitude for GW mode nn in units of
+    the orbital frequency, eccentricity ee, binary masses m1 and m2, 
+    semi-major axis a, and distance to source dL.  Use SI units.
+    Returns the GW amplitude for that frequency mode.
+    Amaro-Seoane et al. Eqn. (9), refs Finn and Thorne 2000.
+
+Help on function orbitalFreq in module gwTools:
+
+orbitalFreq(m1, m2, a)
+    Given two masses, m1 and m2, and the semimajor axis a,
+    return the orbital frequency in Hz from Kepler relations.
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{aData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}  \PY{c+c1}{\PYZsh{} To see the headers:)  Just a reminder.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}    pl\_hostname pl\_letter    pl\_discmethod  pl\_orbper  pl\_orbsmax  pl\_orbeccen  \textbackslash{}
+         0  HD 142022 A         b  Radial Velocity    1928.00        3.03       0.5300   
+         1     HD 39091         b  Radial Velocity    2151.00        3.38       0.6405   
+         2  HD 137388 A         b  Radial Velocity     330.00        0.89       0.3600   
+         3      GJ 3021         b  Radial Velocity     133.71        0.49       0.5110   
+         
+            pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx  
+         0      5.100    35.87     0.99  2014-05-14   27.88  
+         1     10.270    18.21     1.10  2014-07-23   54.92  
+         2      0.223    38.45     0.86  2014-05-14   26.01  
+         3      3.370    17.62     0.90  2014-05-14   56.76  
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Explicitly use Amaro-Seoane et al. Eqn
+(9), so that we can see it. Do NOT use gwt.hh(). Note the physical
+constants are back, \(G^{5/3}/c^{4}\) to make it dimensionless when we
+use SI units for all the other
+parameters.}{Explicitly use Amaro-Seoane et al. Eqn (9), so that we can see it. Do NOT use gwt.hh(). Note the physical constants are back, G\^{}\{5/3\}/c\^{}\{4\} to make it dimensionless when we use SI units for all the other parameters.}}\label{explicitly-use-amaro-seoane-et-al.-eqn-9-so-that-we-can-see-it.-do-not-use-gwt.hh.-note-the-physical-constants-are-back-g53c4-to-make-it-dimensionless-when-we-use-si-units-for-all-the-other-parameters.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Actually append n\PYZus{}min, n\PYZus{}max, numpy array of GW strains h.}
          \PY{c+c1}{\PYZsh{} In the Mathematica JustStrainPlots.nb, about 40\PYZpc{} down, calc hhVfreq first time.}
          
          \PY{n}{hhmodesCol} \PY{o}{=} \PY{p}{[}\PY{p}{]}  \PY{c+c1}{\PYZsh{} Setup a list of the hhmodes that will be appended to the dataframe.}
@@ -866,13 +738,7 @@ histo}\label{append-the-rows-i-need-for-the-modeset-and-gw-freqs-histo}
              \PY{n}{hhmodesCol}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{hhmodes} \PY{p}{)}
              \PY{n}{modesCol}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{modes} \PY{p}{)}
              \PY{n}{freq0Col}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{freq0} \PY{p}{)}
-                
-         \PY{c+c1}{\PYZsh{}Append the hhmodesCol to the dataframe, for ease of getting at the other attributes.}
-         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{freq0Col}
-         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{modesCol}
-         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hhmodesCol}
-         
-         \PY{n}{aData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+                 
 \end{Verbatim}
 
 
@@ -883,21 +749,45 @@ irow is  9  ,frontCoeff is  2.5108674723286658e-25  pl\_orbeccen is  0.638
 
     \end{Verbatim}
 
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Check there is stuff in there.}
+         \PY{n+nb}{print}\PY{p}{(} \PY{n+nb}{len}\PY{p}{(}\PY{n}{hhmodesCol}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{)} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(} \PY{n}{hhmodesCol}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(} \PY{n}{modesCol}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+15
+[1.8702816437643177e-26, 2.1740658908129503e-26, 2.882158933335889e-26, 2.664860375595358e-26, 2.1935963182104775e-26, 1.7069345750672433e-26, 1.2854210432619556e-26, 9.475882743564367e-27, 6.882115822891534e-27, 4.9437540797700044e-27, 3.5216043707537875e-27, 2.4919659046939435e-27, 1.7539322636285046e-27, 1.2290258111169294e-27, 8.58019444780923e-28]
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Append the hhmodesCol to the dataframe, for ease of getting at the other attributes.}
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{freq0Col}
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{modesCol}
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hhmodesCol}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Check that appending happened correctly.}
+         \PY{n}{aData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}20}]:}    pl\_hostname pl\_letter    pl\_discmethod  pl\_orbper  pl\_orbsmax  pl\_orbeccen  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}18}]:}    pl\_hostname pl\_letter    pl\_discmethod  pl\_orbper  pl\_orbsmax  pl\_orbeccen  \textbackslash{}
          0  HD 142022 A         b  Radial Velocity     1928.0        3.03       0.5300   
          1     HD 39091         b  Radial Velocity     2151.0        3.38       0.6405   
          2  HD 137388 A         b  Radial Velocity      330.0        0.89       0.3600   
          
-            pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx      orbFreqs  \textbackslash{}
+            pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx         freq0  \textbackslash{}
          0      5.100    35.87     0.99  2014-05-14   27.88  6.003150e-09   
          1     10.270    18.21     1.10  2014-07-23   54.92  5.380788e-09   
          2      0.223    38.45     0.86  2014-05-14   26.01  3.507295e-08   
-         
-            chirpMassMsols         freq0  \textbackslash{}
-         0        0.040754  6.003150e-09   
-         1        0.064644  5.380788e-09   
-         2        0.005896  3.507295e-08   
          
                                                         modes  \textbackslash{}
          0  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
@@ -910,89 +800,684 @@ irow is  9  ,frontCoeff is  2.5108674723286658e-25  pl\_orbeccen is  0.638
          2  [1.6721119496253516e-27, 4.481574164761941e-27{\ldots}  
 \end{Verbatim}
             
-    \subsection{All GW modes freqs
-histogrammed.}\label{all-gw-modes-freqs-histogrammed.}
+    \subsubsection{Make a plot of some high eccentricity planet and the
+modes to double
+check.}\label{make-a-plot-of-some-high-eccentricity-planet-and-the-modes-to-double-check.}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Build the XX and YY\PYZsq{}s from the modesets and the orbital freq.}
-         \PY{c+c1}{\PYZsh{} time to get fancy}
-         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{aDataEccen} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{aDataEccen}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}  \PY{c+c1}{\PYZsh{}  Looks like Row 304 has eccen 0.9560 and a ton of modes.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}      pl\_hostname pl\_letter    pl\_discmethod  pl\_orbper  pl\_orbsmax  \textbackslash{}
+         304     HD 20782         b  Radial Velocity   597.0650       1.397   
+         3573    HD 80606         b  Radial Velocity   111.4357       0.449   
+         199      HD 4113         b  Radial Velocity   526.6200       1.280   
          
-         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+               pl\_orbeccen  pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx  \textbackslash{}
+         304        0.9560       1.43    35.50     1.02  2016-05-19     NaN   
+         3573       0.9332       3.94    29.04     0.97  2014-05-14   17.13   
+         199        0.9030       1.56    44.05     0.99  2014-12-03   22.70   
          
-         \PY{n}{myfreqs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-             \PY{n}{freq0} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
-             \PY{n}{modes} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}  \PY{c+c1}{\PYZsh{} a list not np.array}
-             \PY{k}{for} \PY{n}{im} \PY{o+ow}{in} \PY{n}{modes}\PY{p}{:}
-                 \PY{n}{myfreqs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{im}\PY{o}{*}\PY{n}{freq0} \PY{p}{)}
+                      freq0                                              modes  \textbackslash{}
+         304   1.938495e-08  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         3573  1.038633e-07  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         199   2.197804e-08  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
          
-         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{myfreqs}\PY{p}{)}\PY{p}{)}
+                                                         hhmodes  
+         304   [1.2814629622279826e-26, 9.037349908557032e-27{\ldots}  
+         3573  [1.30740990715796e-25, 8.506293791204289e-26, {\ldots}  
+         199   [1.2594583314652946e-26, 7.233458381856687e-27{\ldots}  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}  Looks like Row 304 has eccen 0.9560 and a ton of modes.}
+         \PY{c+c1}{\PYZsh{}  Or row 0 of the new dataframe.}
+         \PY{n}{irowBig} \PY{o}{=} \PY{l+m+mi}{304}  \PY{c+c1}{\PYZsh{} index in dataframe, also the same index for aDataEccen.}
+         \PY{n}{freq0} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{irowBig}\PY{p}{]}\PY{o}{*}\PY{n}{secsDay} \PY{p}{)}
          
-         \PY{c+c1}{\PYZsh{} Log plot need even bins in Log\PYZhy{}Space??}
-         \PY{n}{binmin} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}10}
-         \PY{n}{binmax} \PY{o}{=} \PY{l+m+mf}{0.001}
-         \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{200}
-         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
          
-         \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{myfreqs}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{mybins}\PY{p}{)}
-             
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanet GWs with Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}ylim( (0.7, 10000) )}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f, Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{irowBig}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{n}{freq0}
+         \PY{c+c1}{\PYZsh{}  Needed the np.array() or saw an error that my list was not AN integer!!}
+         \PY{n}{yy} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{irowBig}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(} \PY{n+nb}{len}\PY{p}{(}\PY{n}{xx}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}hostname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{irowBig}\PY{p}{]} \PY{p}{)}
          
-         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopGWFreqsHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopGWFreqsHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-         
-         \PY{c+c1}{\PYZsh{}Print the max orb freq}
-         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Round trip time for LISA lasers along leg }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{o}{/}\PY{n}{cee}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ secs,  and frequency of }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-               \PY{n}{cee}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Hz, and C\PYZam{}R \PYZdl{}f\PYZus{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{star\PYZdl{} }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{cee}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Hz}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
-         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max GW frequency in Hz, NOT with GW modeset yet }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(} \PY{n}{myfreqs} \PY{p}{)} \PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plot xx and yy for ONE planet with crazy high eccentricity.}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h modes for planet on star }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ with e = }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}hostname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{irowBig}\PY{p}{]}\PY{p}{,} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{irowBig}\PY{p}{]} \PY{p}{)} \PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-6312
+490    HD 20782
 
     \end{Verbatim}
 
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} Text(0.5,1,'h modes for planet on star HD 20782 with e = 0.956')
+\end{Verbatim}
+            
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{\texorpdfstring{The above looks weird, double check
+versus the \(\sqrt{g(n,e)}/n\)
+.}{The above looks weird, double check versus the \textbackslash{}sqrt\{g(n,e)\}/n .}}\label{the-above-looks-weird-double-check-versus-the-sqrtgnen-.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Above is weird!!}
+         \PY{n}{eccen} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{304}\PY{p}{]}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{491}\PY{p}{)} \PY{p}{)}
+         \PY{n}{yy} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{nn}\PY{p}{,} \PY{n}{eccen}\PY{p}{)} \PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn} \PY{o+ow}{in} \PY{n}{xx} \PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Okay then, h prop to \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{g(n,e)\PYZcb{}/n\PYZdl{} is a bit oddly behaved}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Okay not so weird!!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Plot All the dimensionless strains for the exops (different
+colors
+eventually)}\label{plot-all-the-dimensionless-strains-for-the-exops-different-colors-eventually}
+
+\subsubsection{Replace with a density plot of some
+kind?}\label{replace-with-a-density-plot-of-some-kind}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}from matplotlib import cm \PYZsh{} for colormap need max number of planets}
+         \PY{c+c1}{\PYZsh{}myCmap = cm.get\PYZus{}cmap(\PYZsq{}cool\PYZsq{})}
+         
+         \PY{c+c1}{\PYZsh{}maxNum = len(aData)}
+         
+         \PY{c+c1}{\PYZsh{} Loop over rows seems easiest.}
+         \PY{n}{figAll} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)} \PY{p}{)}
+         \PY{n}{axAll} \PY{o}{=} \PY{n}{figAll}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Seeing other ways to loop over rows, more standard?  .iterrows or .itertuple}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}  range(4):  \PYZsh{} cannot iterate over length, .itertuples() }
+         
+             \PY{n}{freq0} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{secsDay} \PY{p}{)}
+             \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{p}{)} \PY{o}{*} \PY{n}{freq0}
+             \PY{c+c1}{\PYZsh{}  Needed the np.array() or saw an error that my list was not AN integer!!}
+             \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Plot xx and yy for ONE planet with crazy high eccentricity.}
+             \PY{c+c1}{\PYZsh{}myCmap = plt.colormaps(\PYZsq{}cool\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}axAll = plt.loglog(xx, yy, c=0.44, cmap=myCmap)}
+             \PY{n}{axAll}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}plt.colorbar(True)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h modes for exoplanets numbering }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{The Noise curve from Shane Larson at CalTech, url
+below.}\label{the-noise-curve-from-shane-larson-at-caltech-url-below.}
+
+\subsection{\texorpdfstring{Use the downloaded data that is Amplitude
+Spectral Density (ASD), and for freq plot want it in dimless strain
+units (1 year or 4 years) by dividing by sqrt(Int Time), for the SNR
+need the \(S_n(f)\) in per Hz, the Power Spectral Density (PSD) of the
+expected
+noise.}{Use the downloaded data that is Amplitude Spectral Density (ASD), and for freq plot want it in dimless strain units (1 year or 4 years) by dividing by sqrt(Int Time), for the SNR need the S\_n(f) in per Hz, the Power Spectral Density (PSD) of the expected noise.}}\label{use-the-downloaded-data-that-is-amplitude-spectral-density-asd-and-for-freq-plot-want-it-in-dimless-strain-units-1-year-or-4-years-by-dividing-by-sqrtint-time-for-the-snr-need-the-s_nf-in-per-hz-the-power-spectral-density-psd-of-the-expected-noise.}
+
+\subsection{For the future use the Cornish-Robson noise curve as
+standard, definitely
+compare.}\label{for-the-future-use-the-cornish-robson-noise-curve-as-standard-definitely-compare.}
+
+    The Larson curve from
+http://www.srl.caltech.edu/\textasciitilde{}shane/sensitivity/MakeCurve.html
+.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Load one or other of the Larson curves into a Panda Dataframe.}
+         \PY{n}{larsonASDFile} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scg\PYZus{}5597\PYZus{}2W\PYZus{}2p5e9m.dat}\PY{l+s+s1}{\PYZsq{}}  \PY{c+c1}{\PYZsh{} Amplitude Spectral Densities, ASD\PYZsq{}s in per root Hz!!!}
+         \PY{n}{larsonASD} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(} \PY{n}{thisDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{larsonASDFile}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{delim\PYZus{}whitespace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PYZbs{}
+                                        \PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq[Hz]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ASD[Hz\PYZca{}\PYZhy{}1/2]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{22} \PY{p}{)}
+         \PY{n}{larsonASD}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}        freq[Hz]  ASD[Hz\^{}-1/2]
+         0  1.953007e-07  4.115269e-12
+         1  1.998512e-07  3.929997e-12
+         2  2.045077e-07  3.753070e-12
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Append the 1 year integrated dimension\PYZhy{}less by dividing ASD by sqrt(1 year in secs).  Check this!!}
+         \PY{n}{larsonASD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h[dimless,1yr]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{larsonASD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ASD[Hz\PYZca{}\PYZhy{}1/2]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{o}{*}\PY{n}{secsYear}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{larsonASD}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq[Hz]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h[dimless,1yr]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f9b6590f550>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{The 1 year Larson curve and the individual modes for each
+exoplanet.}\label{the-1-year-larson-curve-and-the-individual-modes-for-each-exoplanet.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} plotting different dataframes in same plot}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{larsonASD}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq[Hz]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h[dimless,1yr]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)} \PY{p}{)}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{aa} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{xx} \PY{o}{=} \PY{p}{[}\PY{n}{aa} \PY{o}{*} \PY{n}{uu} \PY{k}{for} \PY{n}{uu} \PY{o+ow}{in} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}  \PY{p}{]} 
+             \PY{n}{yy} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{acolor} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{if} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}hostname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSR J1719\PYZhy{}1438}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}  \PY{c+c1}{\PYZsh{} Flag the brightest one with red dots.}
+                 \PY{k}{if} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}letter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{acolor} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{acolor}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}26}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}18}\PY{p}{)} \PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)} \PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{One Year Noise and Exops, PSR J1719\PYZhy{}1438 in red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+             
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-Round trip time for LISA lasers along leg  16.6782047599076  secs,  and frequency of  0.0599584916  Hz, and C\&R \$f\_\textbackslash{}star\$  0.01908538063694777  Hz
-Max GW frequency in Hz, NOT with GW modeset yet  0.0003827983949318424
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Print the row for exop ...}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}hostname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSR J1719\PYZhy{}1438}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{and} \PYZbs{}
+             \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}letter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{theRow} \PY{o}{=} \PY{n}{irow}
+                 \PY{n+nb}{print}\PY{p}{(} \PY{n}{aData}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['PSR J1719-1438' 'b' 'Pulsar Timing' 0.09070629 0.0044 0.06 1.2 1200.0
+ 1.4 '2014-05-14' nan 0.0001275994649772808 list([1, 2, 3])
+ list([1.681497004686017e-26, 3.5797366388109786e-25, 4.8348526229385945e-26])]
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{aa} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{lisa\PYZus{}psd}\PY{p}{(}\PY{p}{)}
-         \PY{n}{aa}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{12.3e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} S\PYZus{}n(f) per Hz}
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{gwt}\PY{o}{.}\PY{n}{aNmax}\PY{p}{(}\PY{l+m+mf}{0.06}\PY{p}{)}  \PY{c+c1}{\PYZsh{} If e\PYZgt{}0 always have at least three modes, n = 1,2,3 .}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}22}]:} array([3.07258155e-40, 3.94217686e-09, 3.94225804e-21])
+{\color{outcolor}Out[{\color{outcolor}28}]:} 3.0
 \end{Verbatim}
             
+    \subsection{\texorpdfstring{Calculate the signal-to-noise ratio for each
+planet. From matched filtering us
+\(\frac{S}{N}\big)^2 = 2 T \sum_{m=1}^\infty \frac{|h(m f_0)|^2}{S_n(m f_0)}\)
+, \(T\) is integration time, \(h\) are the source dimless strains at
+freq \(m f_0\) where \(f_0\) is the orbital frequency, and the sum below
+is truncated at n-star(eccentricity) not \(\infty\)
+.}{Calculate the signal-to-noise ratio for each planet. From matched filtering us \textbackslash{}frac\{S\}\{N\}\textbackslash{}big)\^{}2 = 2 T \textbackslash{}sum\_\{m=1\}\^{}\textbackslash{}infty \textbackslash{}frac\{\textbar{}h(m f\_0)\textbar{}\^{}2\}\{S\_n(m f\_0)\} , T is integration time, h are the source dimless strains at freq m f\_0 where f\_0 is the orbital frequency, and the sum below is truncated at n-star(eccentricity) not \textbackslash{}infty .}}\label{calculate-the-signal-to-noise-ratio-for-each-planet.-from-matched-filtering-us-fracsnbig2-2-t-sum_m1infty-frachm-f_02s_nm-f_0-t-is-integration-time-h-are-the-source-dimless-strains-at-freq-m-f_0-where-f_0-is-the-orbital-frequency-and-the-sum-below-is-truncated-at-n-stareccentricity-not-infty-.}
+
+    \subsection{\texorpdfstring{Need linear interpolator (or other) for
+\(S_n(f)\) so that I can find \(S_n\) at the relevant
+frequency.}{Need linear interpolator (or other) for S\_n(f) so that I can find S\_n at the relevant frequency.}}\label{need-linear-interpolator-or-other-for-s_nf-so-that-i-can-find-s_n-at-the-relevant-frequency.}
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{n}{aa}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{12.3e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{]}\PY{p}{)} \PY{p}{)}  \PY{c+c1}{\PYZsh{} sqrt(S\PYZus{}n(f)) per root Hz}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Will need to interpolate the S\PYZus{}n(f) functions.}
+         \PY{c+c1}{\PYZsh{} Do the linear interpolation in the log\PYZhy{}space since it is so linear there, even a formula for it, I think.}
+         \PY{k}{class} \PY{n+nc}{snLinInterp}\PY{p}{:}
+         
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Input the numpy arrays of freqs and Sn\PYZsq{}s and returns a class with}
+         \PY{l+s+sd}{    a \PYZus{}\PYZus{}call\PYZus{}\PYZus{} function.  Not good checks for values \PYZlt{}=0 or if you are interpolating}
+         \PY{l+s+sd}{    outside the range it was setup in, so use carefully.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{freqs}\PY{p}{,} \PY{n}{sns}\PY{p}{)}\PY{p}{:}
+                 \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{interpolate} \PY{k}{import} \PY{n}{interp1d}
+                 \PY{c+c1}{\PYZsh{} Check lenght of arrays agree.}
+                 \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{freqs}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sns}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{***class snLinInterp: error, arrays lengths disagree, len(freqs) }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{freqs}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ and }\PY{l+s+s1}{\PYZsq{}}\PYZbs{}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{len(sns) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sns}\PY{p}{)} \PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Check for zero in each array.  Cannot use x[x\PYZgt{}0] as usual, need arrays coordinated.}
+                     \PY{n}{idrop} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                     \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{freqs}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{freqs}\PY{p}{[}\PY{n}{ii}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{0} \PY{o+ow}{or} \PY{n}{sns}\PY{p}{[}\PY{n}{ii}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n}{idrop}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ii}\PY{p}{)}
+         
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{freqs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{freqs}\PY{p}{,}\PY{n}{idrop}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sns} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{sns}\PY{p}{,} \PY{n}{idrop}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logFreqs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{freqs}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logSns} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sns}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{myInterp1D} \PY{o}{=} \PY{n}{interp1d}\PY{p}{(}\PY{n}{freqs}\PY{p}{,} \PY{n}{sns}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Leave it linear for now. scipy.interpolate.}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{minFreq} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{freqs}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{maxFreq} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{freqs}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Can only interp between the values min freq and max.}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{uu}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} Checking for negatives and zeros is a pain, just do not do it for now!!}
+                 \PY{k}{return}\PY{p}{(} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{myInterp1D}\PY{p}{(}\PY{n}{uu}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Checks on the linear interpolator in the
+log-space.}\label{checks-on-the-linear-interpolator-in-the-log-space.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{12.3}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{xx}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{snInterp} \PY{o}{=} \PY{n}{snLinInterp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy} \PY{p}{)}  \PY{c+c1}{\PYZsh{} Has the \PYZus{}\PYZus{}call\PYZus{}\PYZus{} method, so makes a 1D function.}
+         \PY{n}{xint} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{3.33}\PY{p}{,} \PY{l+m+mf}{6.6}\PY{p}{,} \PY{l+m+mf}{11.11}\PY{p}{]}
+         \PY{n}{yint} \PY{o}{=} \PY{n}{snInterp}\PY{p}{(}\PY{n}{xint}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{xx}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xint}\PY{p}{,} \PY{n}{yint}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} set\PYZus{}title(\PYZsq{}Testing the linear interp in log\PYZhy{}log space of the dep and indep variables.\PYZsq{})}
+         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing the linear interp in log\PYZhy{}log space of the dep and indep variables.}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Test handling of the negatives and zero values!}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{5.5}\PY{p}{,} \PY{l+m+mf}{12.3}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{xx}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{snInterp2} \PY{o}{=} \PY{n}{snLinInterp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{)} \PY{c+c1}{\PYZsh{} trying negatives for x but all positives for y, should drop both values.}
+         
+         \PY{n}{xint} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{3.33}\PY{p}{,} \PY{l+m+mf}{6.6}\PY{p}{,} \PY{l+m+mf}{11.11}\PY{p}{]}\PY{p}{)}
+         \PY{n}{yint} \PY{o}{=} \PY{n}{snInterp}\PY{p}{(}\PY{n}{xint}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{xx}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xint}\PY{p}{,} \PY{n}{yint}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,}\PY{n}{yy}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xint}\PY{p}{,} \PY{n}{yint}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing the linear interp in log-log space of the dep and indep variables.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Append the PSD to the Noise curve
+dataframe.}\label{append-the-psd-to-the-noise-curve-dataframe.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Append the PSD, per root Hz.  What we need for the SNR**2 formualae.}
+         \PY{n}{larsonASD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSD[Hz\PYZca{}\PYZhy{}1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{larsonASD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ASD[Hz\PYZca{}\PYZhy{}1/2]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{n}{larsonASD}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq[Hz]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSD[Hz\PYZca{}\PYZhy{}1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{logy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}23}]:} array([1.75287808e-20, 6.27867570e-05, 6.27874035e-11])
+{\color{outcolor}Out[{\color{outcolor}31}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f9bae3e1908>
 \end{Verbatim}
             
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Setup the interpolating for the S\PYZus{}n(f) in the range below f = 2e\PYZhy{}3 Hz.}
+         
+         \PY{n}{xfreqsA} \PY{o}{=} \PY{n}{larsonASD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq[Hz]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{yPSDA} \PY{o}{=} \PY{n}{larsonASD}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSD[Hz\PYZca{}\PYZhy{}1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{c+c1}{\PYZsh{} Define the full data as numpy arrays.}
+         
+         \PY{n}{xfreqs} \PY{o}{=} \PY{n}{xfreqsA}\PY{p}{[}\PY{n}{xfreqsA}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mf}{2e\PYZhy{}3}\PY{p}{]}  \PY{c+c1}{\PYZsh{} Use the numpy index selection here.}
+         \PY{n}{yPSD} \PY{o}{=} \PY{n}{yPSDA}\PY{p}{[}\PY{n}{xfreqsA}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mf}{2e\PYZhy{}3}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(} \PY{n}{xfreqs}\PY{p}{,} \PY{n}{yPSD}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{mySnInterp} \PY{o}{=} \PY{n}{snLinInterp}\PY{p}{(} \PY{n}{xfreqs}\PY{p}{,} \PY{n}{yPSD} \PY{p}{)}
+         \PY{c+c1}{\PYZsh{} To handle the really low frequency modes use the linear fit in the log\PYZhy{}log space:}
+         \PY{c+c1}{\PYZsh{} Larson formula for now.  From Mathematica GWExopSNR.nb}
+         \PY{c+c1}{\PYZsh{}ssubn[freq\PYZus{}] := 0.1642*10\PYZca{}\PYZhy{}48/freq\PYZca{}4}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{} Actually the fit in the python notebook for the left hand side of the S\PYZus{}n(f) from Larson\PYZsq{}s Sqrt[S\PYZus{}n(f)] }
+         \PY{c+c1}{\PYZsh{} was TeXForm[f\PYZca{}\PYZhy{}3.9946\PYZbs{}cdot 1.6421 \PYZbs{}cdot 10\PYZca{}\PYZhy{}49]  .}
+         \PY{k}{def} \PY{n+nf}{ssubn}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return}\PY{p}{(} \PY{p}{(}\PY{l+m+mf}{0.1642e\PYZhy{}48}\PY{o}{/}\PY{n}{freq}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)} \PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} It is the sum over the modes.}
+         \PY{n}{intTime} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{*}\PY{n}{secsYear}  \PY{c+c1}{\PYZsh{} Integration time in seconds.}
+         
+         \PY{n}{SNRCols} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}\PY{p}{:}
+             \PY{n}{freq0} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{modes}\PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{hhmodes} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{SNRSqSum} \PY{o}{=} \PY{l+m+mf}{0.0}
+             \PY{k}{for} \PY{n}{jmodes} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{modes}\PY{p}{)} \PY{p}{)}\PY{p}{:}   \PY{c+c1}{\PYZsh{} Calc the SQUARE of the SNR!}
+                 \PY{n}{amode} \PY{o}{=} \PY{n}{modes}\PY{p}{[}\PY{n}{jmodes}\PY{p}{]}
+                 \PY{n}{SNRSqSum} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{2.0}\PY{o}{*}\PY{n}{intTime}\PY{o}{*}\PY{n}{hhmodes}\PY{p}{[}\PY{n}{jmodes}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{ssubn}\PY{p}{(}\PY{n}{amode}\PY{o}{*}\PY{n}{freq0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}        SNRSqSum += 2.0*intTime*hhmodes[jmodes]**2/mySnInterp(amode*freq0)}
+             \PY{n}{SNRCols}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{SNRSqSum}\PY{p}{)} \PY{p}{)}
+                 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{len(SNRCols) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{SNRCols}\PY{p}{)} \PY{p}{)}
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{SNRCols}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{len(aData) is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+len(SNRCols) is  910
+len(aData) is  910
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Check the appending of SNR.}
+         \PY{n}{aData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}    pl\_hostname pl\_letter    pl\_discmethod  pl\_orbper  pl\_orbsmax  pl\_orbeccen  \textbackslash{}
+         0  HD 142022 A         b  Radial Velocity     1928.0        3.03       0.5300   
+         1     HD 39091         b  Radial Velocity     2151.0        3.38       0.6405   
+         2  HD 137388 A         b  Radial Velocity      330.0        0.89       0.3600   
+         
+            pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx         freq0  \textbackslash{}
+         0      5.100    35.87     0.99  2014-05-14   27.88  6.003150e-09   
+         1     10.270    18.21     1.10  2014-07-23   54.92  5.380788e-09   
+         2      0.223    38.45     0.86  2014-05-14   26.01  3.507295e-08   
+         
+                                                        modes  \textbackslash{}
+         0  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         1  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         2                              [1, 2, 3, 4, 5, 6, 7]   
+         
+                                                      hhmodes           SNR  
+         0  [1.8702816437643177e-26, 2.1740658908129503e-2{\ldots}  1.171337e-12  
+         1  [8.230508420052954e-26, 4.507375225359441e-26,{\ldots}  9.018521e-12  
+         2  [1.6721119496253516e-27, 4.481574164761941e-27{\ldots}  1.716782e-12  
+\end{Verbatim}
+            
+    \subsection{Create a dataframe ordered by
+SNR.}\label{create-a-dataframe-ordered-by-snr.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{bData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{bData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}         pl\_hostname pl\_letter  pl\_discmethod  pl\_orbper  pl\_orbsmax  \textbackslash{}
+         492  PSR J1719-1438         b  Pulsar Timing   0.090706     0.00440   
+         156         WASP-18         b        Transit   0.941453     0.02026   
+         336  PSR J2322-2650         b  Pulsar Timing   0.322964     0.01020   
+         
+              pl\_orbeccen  pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx     freq0  \textbackslash{}
+         492       0.0600     1.2000  1200.00     1.40  2014-05-14     NaN  0.000128   
+         156       0.0092    10.4300   105.49     1.28  2014-05-14    9.48  0.000012   
+         336       0.0017     0.7949   230.00     1.40  2017-12-21    4.40  0.000036   
+         
+                  modes                                            hhmodes       SNR  
+         492  [1, 2, 3]  [1.681497004686017e-26, 3.5797366388109786e-25{\ldots}  0.000478  
+         156  [1, 2, 3]  [5.044293986239611e-26, 7.052792899222313e-24,{\ldots}  0.000084  
+         336  [1, 2, 3]  [7.075677179501135e-28, 5.354424563392014e-25,{\ldots}  0.000054  
+\end{Verbatim}
+            
+    \subsection{Print the table or SNR and other
+items.}\label{print-the-table-or-snr-and-other-items.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{astr} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name                }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{eccen}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{per(days)}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{SNR}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{index}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{astr}\PY{p}{)}
+         \PY{k}{for} \PY{n}{ii} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{:}
+             \PY{n}{astr} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}\PYZhy{}20s}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}6.4f}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}.3g}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PYZbs{}
+             \PY{p}{(}\PY{n}{bData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}hostname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{bData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}letter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,} \PY{n}{bData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,} 
+              \PY{n}{bData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,} 
+              \PY{n}{bData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{ii}\PY{p}{]}\PY{p}{,} \PY{n}{ii}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{astr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+name                	eccen	per(days)	SNR	index
+
+PSR J1719-1438 b    	0.0600	0.091	0.000478	0
+WASP-18 b           	0.0092	0.941	8.37e-05	1
+PSR J2322-2650 b    	0.0017	0.323	5.39e-05	2
+KELT-1 b            	0.0099	1.218	4.51e-05	3
+WASP-43 b           	0.0000	0.813	1.64e-05	4
+tau Boo b           	0.0110	3.312	8.45e-06	5
+KELT-9 b            	0.0000	1.481	6.07e-06	6
+KELT-16 b           	0.0000	0.969	5.26e-06	7
+WASP-77 A b         	0.0000	1.360	5.1e-06	8
+WASP-19 b           	0.0020	0.789	4.59e-06	9
+WASP-14 b           	0.0910	2.244	3.98e-06	10
+HATS-18 b           	0.1660	0.838	3.77e-06	11
+HAT-P-2 b           	0.5171	5.633	3.57e-06	12
+XO-3 b              	0.2600	3.192	3.54e-06	13
+HAT-P-20 b          	0.0150	2.875	3.16e-06	14
+HD 73256 b          	0.0290	2.549	2.69e-06	15
+
+    \end{Verbatim}
+
+    \subsection{Exops with the highest
+eccentricity}\label{exops-with-the-highest-eccentricity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{cData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{cData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}      pl\_hostname pl\_letter    pl\_discmethod  pl\_orbper  pl\_orbsmax  \textbackslash{}
+         304     HD 20782         b  Radial Velocity   597.0650       1.397   
+         3573    HD 80606         b  Radial Velocity   111.4357       0.449   
+         199      HD 4113         b  Radial Velocity   526.6200       1.280   
+         23      HD 76920         b  Radial Velocity   415.4000       1.149   
+         394     HD 98649         b  Radial Velocity  4951.0000       5.600   
+         12     HD 108341         b  Radial Velocity  1129.0000       2.000   
+         
+               pl\_orbeccen  pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx  \textbackslash{}
+         304        0.9560       1.43    35.50     1.02  2016-05-19     NaN   
+         3573       0.9332       3.94    29.04     0.97  2014-05-14   17.13   
+         199        0.9030       1.56    44.05     0.99  2014-12-03   22.70   
+         23         0.8560       3.93   184.80     1.17  2017-11-30     NaN   
+         394        0.8500       6.80    42.77     1.00  2014-05-14   23.38   
+         12         0.8500       3.50    49.40     0.84  2015-01-08   20.23   
+         
+                      freq0                                              modes  \textbackslash{}
+         304   1.938495e-08  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         3573  1.038633e-07  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         199   2.197804e-08  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         23    2.786248e-08  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         394   2.337725e-09  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         12    1.025162e-08  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         
+                                                         hhmodes           SNR  
+         304   [1.2814629622279826e-26, 9.037349908557032e-27{\ldots}  1.752908e-08  
+         3573  [1.30740990715796e-25, 8.506293791204289e-26, {\ldots}  1.366542e-06  
+         199   [1.2594583314652946e-26, 7.233458381856687e-27{\ldots}  1.713695e-09  
+         23    [1.0138731199811866e-26, 4.557659817080447e-27{\ldots}  5.919106e-10  
+         394   [1.3095832207217623e-26, 5.675932575080468e-27{\ldots}  4.693750e-12  
+         12    [1.3931095245605775e-26, 6.037948261699841e-27{\ldots}  9.602185e-11  
+\end{Verbatim}
+            
+    \subsection{Cornish and Robson noise curve, see the paper arXiv
+https://arxiv.org/pdf/1803.01944.pdf}\label{cornish-and-robson-noise-curve-see-the-paper-arxiv-httpsarxiv.orgpdf1803.01944.pdf}
+
+    Coded into gwt.lisa\_psd() by Katie and does NOT have the white dwarf
+confusion noise in it...which is the way we want it, I think. Use all
+aData as it is here, with SNR from Larson S\_n(f).
+
+    \subsection{Plot the instantaneous h modes on the curve with sqrt of
+S\_n divided by integration time. This is within factors of a few of the
+formulae C\&R
+use.}\label{plot-the-instantaneous-h-modes-on-the-curve-with-sqrt-of-s_n-divided-by-integration-time.-this-is-within-factors-of-a-few-of-the-formulae-cr-use.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} plotting different dataframes in same plot}
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{p}{)}
+         \PY{n}{ax}\PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{SnCR} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{lisa\PYZus{}psd}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{SnCR}\PY{p}{(}\PY{n}{ff}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y1}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{o}{*}\PY{n}{secsYear}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ff}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LISA Noise, 1 year, (C\PYZam{}R)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ff}\PY{p}{,} \PY{n}{y2}\PY{o}{/}\PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LISA Noise, 4 year, (C\PYZam{}R)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{One Year Noise and Exops, PSR J1719\PYZhy{}1438 in red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency, Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimensionless strain, one year, h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} ax = larsonASD.plot(x = \PYZsq{}freq[Hz]\PYZsq{}, y = \PYZsq{}h[dimless,1yr]\PYZsq{}, logy=True, logx=True, grid=True, figsize=(10,8) )}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{aa} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{xx} \PY{o}{=} \PY{p}{[}\PY{n}{aa} \PY{o}{*} \PY{n}{uu} \PY{k}{for} \PY{n}{uu} \PY{o+ow}{in} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}  \PY{p}{]} 
+             \PY{n}{yy} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{acolor} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{if} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}hostname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSR J1719\PYZhy{}1438}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}  \PY{c+c1}{\PYZsh{} Flag the brightest one with red dots.}
+                 \PY{k}{if} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}letter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{acolor} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{acolor}\PY{p}{)}  \PY{c+c1}{\PYZsh{} , label = \PYZsq{}Exop Modes\PYZsq{} Cannot use label because so many plot statements.}
+             \PY{c+c1}{\PYZsh{}ax.set\PYZus{}ylim((1e\PYZhy{}26, 1e\PYZhy{}18) )}
+             \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xlim((1e\PYZhy{}5, 1.0) )}
+             \PY{c+c1}{\PYZsh{}ax.set\PYZus{}title(\PYZsq{}One Year Noise and Exops, PSR J1719\PYZhy{}1438 in red\PYZsq{});}
+             
+         \PY{n}{larsonASD}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq[Hz]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h[dimless,1yr]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{p}{,} \PY{n}{grid}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{;}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} <matplotlib.legend.Legend at 0x7f9b646dbb38>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} copy over the plot rcparmas from PrettyPlotsGWStrain...}
+         
+         \PY{c+c1}{\PYZsh{} Plot defaults.}
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{24.0}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}  \PY{c+c1}{\PYZsh{} (14,10)}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{c+c1}{\PYZsh{}aa = 18.0}
+         \PY{c+c1}{\PYZsh{}params = \PYZob{}\PYZsq{}legend.fontsize\PYZsq{}: aa,}
+         \PY{c+c1}{\PYZsh{}          \PYZsq{}figure.figsize\PYZsq{}: (14, 10),}
+         \PY{c+c1}{\PYZsh{}         \PYZsq{}axes.labelsize\PYZsq{}: aa,}
+         \PY{c+c1}{\PYZsh{}         \PYZsq{}axes.titlesize\PYZsq{}: aa,}
+         \PY{c+c1}{\PYZsh{}         \PYZsq{}xtick.labelsize\PYZsq{}: aa,}
+         \PY{c+c1}{\PYZsh{}         \PYZsq{}ytick.labelsize\PYZsq{}: aa\PYZcb{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{params}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(mpl.rcParams)}
+         \PY{n}{savePlot} \PY{o}{=} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} Plot the exop modes vs sqrt(S\PYZus{}n/T/2)}
+         
+         
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{p}{)}
+         \PY{n}{ax}\PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{SnCR} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{lisa\PYZus{}psd}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{SnCR}\PY{p}{(}\PY{n}{ff}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y1}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{o}{*}\PY{n}{secsYear}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}ax.plot(ff, y2, \PYZsq{}g\PYZhy{}\PYZsq{}, label=\PYZsq{}LISA Noise, 1 year, (C\PYZam{}R)\PYZsq{})}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ff}\PY{p}{,} \PY{n}{y2}\PY{o}{/}\PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LISA Noise, 4 year, (C\PYZam{}R)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Four Year Noise and Exops, PSR J1719\PYZhy{}1438 in red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency, Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimensionless strain, h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} ax = larsonASD.plot(x = \PYZsq{}freq[Hz]\PYZsq{}, y = \PYZsq{}h[dimless,1yr]\PYZsq{}, logy=True, logx=True, grid=True, figsize=(10,8) )}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{aa} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{xx} \PY{o}{=} \PY{p}{[}\PY{n}{aa} \PY{o}{*} \PY{n}{uu} \PY{k}{for} \PY{n}{uu} \PY{o+ow}{in} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}  \PY{p}{]} 
+             \PY{n}{yy} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{acolor} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ko}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{if} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}hostname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSR J1719\PYZhy{}1438}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}  \PY{c+c1}{\PYZsh{} Flag the brightest one with red dots.}
+                 \PY{k}{if} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}letter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{acolor} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{acolor}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}26}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}18}\PY{p}{)} \PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)} \PY{p}{)}
+             \PY{c+c1}{\PYZsh{}ax.set\PYZus{}title(\PYZsq{}One Year Noise and Exops, PSR J1719\PYZhy{}1438 in red\PYZsq{});}
+             
+         \PY{k}{if} \PY{n}{savePlot} \PY{o+ow}{or} \PY{l+m+mi}{1}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../poster/pix/plot\PYZus{}g\PYZus{}n\PYZus{}e.eps\PYZsq{})  \PYZsh{} Both eps and svg seem to make good PDFs of poster.}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/plot\PYZus{}hexopVrootSn.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
 
     % Add a bibliography block to the postdoc
     
