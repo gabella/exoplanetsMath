@@ -1,0 +1,983 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PrettyPlotsGWStrainEtc}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Excerpts of GWStrainPlotsSNR for pretty plots for poster and
+paper}\label{excerpts-of-gwstrainplotssnr-for-pretty-plots-for-poster-and-paper}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Started WEG  20180408. }
+        \PY{c+c1}{\PYZsh{} See the gwtools.py which has utility and strain functions in it}
+        \PY{c+c1}{\PYZsh{} and ExopDBase notebook that can download a new csv exop database.}
+\end{Verbatim}
+
+
+    \section{References}\label{references}
+
+P. Amaro-Seoane et al. "Triplets of supermassive black holes:
+astrophysics, gravitational waves and detection," MNRAS 402 2308-2320
+(2010).
+
+P. C. Peters and J. Mathews, "Gravitational Radiation from Point Masses
+in a Keplerian Orbit," Phys. Rev. 131 (1963) 435-440.
+
+Michele Maggiore, "Gravitational Waves. Volume 1: Theory and
+Experiments," Oxford Univ. Press, 2008.
+
+Shane Larson, "Sensitivity Curves for ..."
+http://www.srl.caltech.edu/\textasciitilde{}shane/sensitivity/
+
+Neil Cornish and Travis Robson, "The construction and use of LISA
+sensitivy curves," https://arxiv.org/abs/1803.01944
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{sys}\PY{o}{,} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{urllib} \PY{k}{as} \PY{n+nn}{ul}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{gwTools} \PY{k}{as} \PY{n+nn}{gwt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{interpolate} \PY{k}{as} \PY{n+nn}{spint}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sea}
+\end{Verbatim}
+
+
+    \subsection{For some pretty print advice from Astro colleagues and
+online
+pointers.}\label{for-some-pretty-print-advice-from-astro-colleagues-and-online-pointers.}
+
+\subsection{From
+https://matplotlib.org/users/customizing.html}\label{from-httpsmatplotlib.orguserscustomizing.html}
+
+If following is in Matplotlib config dir (run
+matplotlib.get\_configdir() ), or maybe in
+\textasciitilde{}/.config/matplotlib create
+mpl\_configdir/stylelib/presentation.mplstyle with
+
+axes.titlesize : 24
+
+axes.labelsize : 20
+
+lines.linewidth : 3
+
+lines.markersize : 10
+
+xtick.labelsize : 16
+
+ytick.labelsize : 16
+
+Then use in the script plt.style.use('presentation')
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(} \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{available} \PY{p}{)}
+        \PY{c+c1}{\PYZsh{}plt.style.use(\PYZsq{}ggplot\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['\_classic\_test', 'dark\_background', 'ggplot', 'seaborn-notebook', 'seaborn-paper', 'seaborn-ticks', 'fast', 'seaborn', 'bmh', 'seaborn-pastel', 'seaborn-dark-palette', 'seaborn-muted', 'seaborn-white', 'seaborn-bright', 'seaborn-talk', 'seaborn-poster', 'Solarize\_Light2', 'seaborn-whitegrid', 'seaborn-darkgrid', 'seaborn-dark', 'seaborn-colorblind', 'grayscale', 'fivethirtyeight', 'classic', 'seaborn-deep']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{if} \PY{l+m+mi}{0}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{24}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{20}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.linewidth}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lines.markersize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick.labelsize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick.labelsize}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{16}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} https://matplotlib.org/users/customizing.html}
+        \PY{c+c1}{\PYZsh{} The font.size property is the default font size for text, given in pts.}
+        \PY{c+c1}{\PYZsh{} 10 pt is the standard value.}
+        \PY{c+c1}{\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}font.family         : sans\PYZhy{}serif}
+        \PY{c+c1}{\PYZsh{}font.style          : normal}
+        \PY{c+c1}{\PYZsh{}font.variant        : normal}
+        \PY{c+c1}{\PYZsh{}font.weight         : medium}
+        \PY{c+c1}{\PYZsh{}font.stretch        : normal}
+        \PY{c+c1}{\PYZsh{} note that font.size controls default text sizes.  To configure}
+        \PY{c+c1}{\PYZsh{} special text sizes tick labels, axes, labels, title, etc, see the rc}
+        \PY{c+c1}{\PYZsh{} settings for axes and ticks. Special text sizes can be defined}
+        \PY{c+c1}{\PYZsh{} relative to font.size, using the following values: xx\PYZhy{}small, x\PYZhy{}small,}
+        \PY{c+c1}{\PYZsh{} small, medium, large, x\PYZhy{}large, xx\PYZhy{}large, larger, or smaller}
+        \PY{c+c1}{\PYZsh{}font.size           : 10.0}
+        \PY{c+c1}{\PYZsh{}font.serif          : DejaVu Serif, Bitstream Vera Serif, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Times New Roman, Times, Palatino, Charter, serif}
+        \PY{c+c1}{\PYZsh{}font.sans\PYZhy{}serif     : DejaVu Sans, Bitstream Vera Sans, Lucida Grande, Verdana, Geneva, Lucid, Arial, Helvetica, Avant Garde, sans\PYZhy{}serif}
+        \PY{c+c1}{\PYZsh{}font.cursive        : Apple Chancery, Textile, Zapf Chancery, Sand, Script MT, Felipa, cursive}
+        \PY{c+c1}{\PYZsh{}font.fantasy        : Comic Sans MS, Chicago, Charcoal, Impact, Western, Humor Sans, xkcd, fantasy}
+        \PY{c+c1}{\PYZsh{}font.monospace      : DejaVu Sans Mono, Bitstream Vera Sans Mono, Andale Mono, Nimbus Mono L, Courier New, Courier, Fixed, Terminal, monospace}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Plot defaults.}
+        \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{24.0}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend.fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}  \PY{c+c1}{\PYZsh{} (14,10)}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes.titlesize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick.labelsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{c+c1}{\PYZsh{}aa = 18.0}
+        \PY{c+c1}{\PYZsh{}params = \PYZob{}\PYZsq{}legend.fontsize\PYZsq{}: aa,}
+        \PY{c+c1}{\PYZsh{}          \PYZsq{}figure.figsize\PYZsq{}: (14, 10),}
+        \PY{c+c1}{\PYZsh{}         \PYZsq{}axes.labelsize\PYZsq{}: aa,}
+        \PY{c+c1}{\PYZsh{}         \PYZsq{}axes.titlesize\PYZsq{}: aa,}
+        \PY{c+c1}{\PYZsh{}         \PYZsq{}xtick.labelsize\PYZsq{}: aa,}
+        \PY{c+c1}{\PYZsh{}         \PYZsq{}ytick.labelsize\PYZsq{}: aa\PYZcb{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{params}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(mpl.rcParams)}
+        \PY{n}{savePlot} \PY{o}{=} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    \subsection{Read the dbase saved in GWStrainPlotsSNR or other
+method.}\label{read-the-dbase-saved-in-gwstrainplotssnr-or-other-method.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{thisDir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} This is the /python subdirectory.}
+        \PY{n}{csvDir} \PY{o}{=} \PY{n}{thisDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/../dbases/}\PY{l+s+s1}{\PYZsq{}}  \PY{c+c1}{\PYZsh{} Will the /../ work on non\PYZhy{}Unices?}
+        \PY{n}{pixDir} \PY{o}{=} \PY{n}{thisDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/../pix/}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{csvFileName} \PY{o}{=} \PY{n}{csvDir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exopP\PYZus{}20180408\PYZus{}141319.csv}\PY{l+s+s1}{\PYZsq{}} 
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Using database file }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{csvFileName}\PY{p}{)}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{csvFileName}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{ifile}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{ifile}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ifile}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)} \PY{p}{)}  \PY{c+c1}{\PYZsh{}Print a couple of lines and reset the pointer.}
+        
+            \PY{n}{ifile}\PY{o}{.}\PY{n}{seek}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{;}
+        
+            \PY{n}{dbData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{ifile}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Read in the whole file to a Panda Dataframe, handles NaN\PYZsq{}s nicely, see below.}
+            \PY{c+c1}{\PYZsh{}ifile.close()  \PYZsh{} Should close when you leave the \PYZdq{}with.\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using database file /home/gabella/Documents/astro/exop/exoplanetsMath/python/../dbases/exopP\_20180408\_141319.csv
+pl\_hostname,pl\_letter,pl\_discmethod,pl\_orbper,pl\_orbsmax,pl\_orbeccen,pl\_bmassj,st\_dist,st\_mass,rowupdate,st\_plx
+ 
+ HD 142022 A,b,Radial Velocity,1928.00000000,3.030000,0.530000,5.10000,35.87,0.99,2014-05-14,27.88
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{dbData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}    pl\_hostname pl\_letter    pl\_discmethod    pl\_orbper  pl\_orbsmax  \textbackslash{}
+        0  HD 142022 A         b  Radial Velocity  1928.000000      3.0300   
+        1     HD 39091         b  Radial Velocity  2151.000000      3.3800   
+        2  HD 137388 A         b  Radial Velocity   330.000000      0.8900   
+        3      GJ 3021         b  Radial Velocity   133.710000      0.4900   
+        4     HD 63454         b  Radial Velocity     2.818049      0.0368   
+        
+           pl\_orbeccen  pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx  
+        0       0.5300      5.100    35.87     0.99  2014-05-14   27.88  
+        1       0.6405     10.270    18.21     1.10  2014-07-23   54.92  
+        2       0.3600      0.223    38.45     0.86  2014-05-14   26.01  
+        3       0.5110      3.370    17.62     0.90  2014-05-14   56.76  
+        4       0.0000      0.398    35.80     0.84  2015-03-26   27.93  
+\end{Verbatim}
+            
+    \subsection{Drop the NaNs}\label{drop-the-nans}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}  called aData because I expected a bData, etc.}
+        \PY{c+c1}{\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} \PYZob{}\PYZdq{}pl\PYZus{}hostname\PYZdq{}, \PYZdq{}pl\PYZus{}letter\PYZdq{}, \PYZdq{}pl\PYZus{}discmethod\PYZdq{}, \PYZdq{}pl\PYZus{}orbper\PYZdq{}, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{} \PYZdq{}pl\PYZus{}orbsmax\PYZdq{}, \PYZdq{}pl\PYZus{}orbeccen\PYZdq{}, \PYZdq{}pl\PYZus{}bmassj\PYZdq{}, \PYZdq{}st\PYZus{}dist\PYZdq{}, \PYZdq{}st\PYZus{}mass\PYZdq{}, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{} \PYZdq{}rowupdate\PYZdq{}, \PYZdq{}st\PYZus{}plx\PYZdq{}\PYZcb{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length all data, dbData }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dbData}\PY{p}{)} \PY{p}{)}
+        \PY{n}{aData} \PY{o}{=} \PY{n}{dbData}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with st\PYZus{}mass}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}bmassj}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with st\PYZus{}dist}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}orbeccen}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}orbper}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+        
+        \PY{n}{aData} \PY{o}{=} \PY{n}{aData}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subset} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbsmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length with pl\PYZus{}orbsmax}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Length all data, dbData  3711
+Length with st\_mass	 3418
+Length with pl\_bmassj	 1344
+Length with st\_dist	 1089
+Length with pl\_orbeccen	 933
+Length with pl\_orbper	 933
+Length with pl\_orbsmax	 910
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{That gets the data in, several plots of just
+of the functions \(g(n,e)\) and
+\(\sqrt(g(n,e))/n\)}{That gets the data in, several plots of just of the functions g(n,e) and \textbackslash{}sqrt(g(n,e))/n}}\label{that-gets-the-data-in-several-plots-of-just-of-the-functions-gne-and-sqrtgnen}
+
+    \subsection{The functions/theory}\label{the-functionstheory}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Use the gwtools.py definitions.}
+         
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} eccentricities, Peters and Mathews, 0.2, 0.5, 0.7  add 0.9??}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{yy} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency mode, n = \PYZdl{}f/f\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elliptic GW power/circular,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{averaged over full orbit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{y3} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x3}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x3}\PY{p}{,} \PY{n}{y3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} AFter the plot calls, to get labels.}
+         
+         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../poster/pix/plot\PYZus{}g\PYZus{}n\PYZus{}e.eps\PYZsq{})  \PYZsh{} Both eps and svg seem to make good PDFs of poster.}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/plot\PYZus{}gne.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{\texorpdfstring{Plot \(\sqrt{g(n,e)}/n\) proportional to
+\(h_{n}\)
+dimensionless}{Plot \textbackslash{}sqrt\{g(n,e)\}/n proportional to h\_\{n\} dimensionless}}\label{plot-sqrtgnen-proportional-to-h_n-dimensionless}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Use the gwtools.py definitions.}
+         
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} eccentricities, Peters and Mathews, 0.2, 0.5, 0.7  add 0.9??}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{yy} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{)} \PY{p}{)} \PY{p}{]}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency mode, n = \PYZdl{}f/f\PYZus{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensionless strain, \PYZdl{}h\PYZus{}}\PY{l+s+si}{\PYZob{}n\PYZcb{}}\PY{l+s+s1}{(f = n}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{,f\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{)} \PY{p}{)} \PY{p}{]}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} AFter the plot calls, to get labels.}
+         
+         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../poster/pix/plot\PYZus{}g\PYZus{}n\PYZus{}e.eps\PYZsq{})  \PYZsh{} Both eps and svg seem to make good PDFs of poster.}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/plot\PYZus{}h\PYZus{}as\PYZus{}gne.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Use the gwtools.py definitions.}
+         
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} eccentricities, Peters and Mathews, 0.2, 0.5, 0.7  add 0.9??}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{xx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{xx}\PY{p}{)}
+         \PY{n}{yy} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{)} \PY{p}{)} \PY{p}{]}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency mode, n = \PYZdl{}f/f\PYZus{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dimensionless strain, \PYZdl{}h\PYZus{}}\PY{l+s+si}{\PYZob{}n\PYZcb{}}\PY{l+s+s1}{(f = n}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{,f\PYZus{}}\PY{l+s+si}{\PYZob{}o\PYZcb{}}\PY{l+s+s1}{)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}x2 = np.arange(1, 25, 0.1)}
+         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{x2}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{p}{[} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{uu}\PY{p}{)}\PY{o}{/}\PY{n}{nn} \PY{k}{for} \PY{n}{nn}\PY{p}{,} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{)} \PY{p}{)} \PY{p}{]}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e=0.7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} AFter the plot calls, to get labels.}
+         
+         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}plt.savefig(\PYZsq{}../poster/pix/plot\PYZus{}g\PYZus{}n\PYZus{}e.eps\PYZsq{})  \PYZsh{} Both eps and svg seem to make good PDFs of poster.}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/plot\PYZus{}h\PYZus{}as\PYZus{}gne\PYZus{}loglog.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Histograms of NASA Archive, AFTER the
+filter}\label{histograms-of-nasa-archive-after-the-filter}
+
+\subsection{A list of the columns to histogram, from ExopDBaseHistos
+notebook}\label{a-list-of-the-columns-to-histogram-from-exopdbasehistos-notebook}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{histCols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbsmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{titles} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eccentricity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orbital Period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SemiMajor Axis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Planet Mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Stellar Distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Stellar Mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{xlabels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eccentricity, e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbital period (d)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{semi\PYZhy{}major axis (au)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{planet mass (M\PYZus{}J)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stellar distance (pc)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stellar mass (M\PYZus{}sol)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{figs}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{axs}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{icol}\PY{p}{,} \PY{n}{ititle}\PY{p}{,} \PY{n}{ixlabel} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{histCols}\PY{p}{,} \PY{n}{titles}\PY{p}{,} \PY{n}{xlabels}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} time to get fancy}
+             \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+             \PY{n}{figs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{afig} \PY{p}{)}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+             \PY{n}{axs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{ax} \PY{p}{)}
+             \PY{n}{aData}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{icol}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanets with }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{ititle}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{n}{ixlabel}\PY{p}{)}
+             \PY{k}{if} \PY{n}{savePlot} \PY{o+ow}{and} \PY{n}{ititle} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eccentricity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{c+c1}{\PYZsh{} Save the figure}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopEccenHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} LibreOffice import SVG histos / bar charts badly.}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopEccenHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} PNGs seem okay, SVGs continue the blue bar below the axis.}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Chirp mass histo}\label{chirp-mass-histo}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Some scipy.constants for comparison mostly.}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{constants} \PY{k}{import} \PY{n}{speed\PYZus{}of\PYZus{}light}\PY{p}{,} \PY{n}{gravitational\PYZus{}constant}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{n}{G}\PY{p}{,} \PY{n}{pi}
+         
+         \PY{n}{massSun} \PY{o}{=} \PY{l+m+mf}{1.989e30}\PY{p}{;} \PY{c+c1}{\PYZsh{}(*kg *)}
+         \PY{n}{massJ} \PY{o}{=} \PY{l+m+mf}{1.898e27}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* kg *)}
+         \PY{n}{massE} \PY{o}{=} \PY{l+m+mf}{5.972e24}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* kg *)}
+         \PY{n}{massJe} \PY{o}{=} \PY{n}{massJ}\PY{o}{/}\PY{n}{massE}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* Jupiter mass is 317.9 earth masses *)}
+         \PY{n}{massJs} \PY{o}{=} \PY{n}{massJ}\PY{o}{/}\PY{n}{massSun}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* relative to the sun\PYZsq{}s mass *)}
+         
+         \PY{n}{pc} \PY{o}{=} \PY{l+m+mf}{30.86e15}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* meters, parsec *)}
+         \PY{n}{au} \PY{o}{=} \PY{l+m+mf}{149.6e9}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* meters, astron unit *)}
+         
+         \PY{n}{cee} \PY{o}{=} \PY{l+m+mf}{299792458.0}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* meters/s, speed of light *)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Compare my cee }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cee}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ and scipy.constants }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{speed\PYZus{}of\PYZus{}light}\PY{p}{)}
+         \PY{n}{cee} \PY{o}{=} \PY{n}{speed\PYZus{}of\PYZus{}light} \PY{c+c1}{\PYZsh{} Use the scipy.constants one.}
+         \PY{n}{secsYear} \PY{o}{=} \PY{l+m+mf}{365.24}\PY{o}{*}\PY{l+m+mf}{24.0}\PY{o}{*}\PY{l+m+mf}{3600.0}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* s, number of seconds in a year *) \PYZsh{} What do astronomers use for this conversion?}
+         \PY{n}{secsDay} \PY{o}{=} \PY{l+m+mf}{24.0}\PY{o}{*}\PY{l+m+mf}{3600.0}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* s, number of seconds in a day *)}
+         
+         \PY{n}{bigG} \PY{o}{=} \PY{l+m+mf}{6.67408e\PYZhy{}11}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* SI Gravitational constant, m\PYZca{}3/kg/s *)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Compare my bigG }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bigG}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ and scipy.constants }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{gravitational\PYZus{}constant}\PY{p}{)}
+         \PY{n}{bigG} \PY{o}{=} \PY{n}{gravitational\PYZus{}constant}
+         
+         \PY{n}{rscon} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bigG}\PY{o}{*}\PY{n}{massSun}\PY{o}{/}\PY{p}{(}\PY{n}{cee}\PY{o}{*}\PY{n}{cee}\PY{p}{)} \PY{c+c1}{\PYZsh{}(* 2955.43 m, solar mass Scharzschild radius *)}
+         \PY{n}{lunits} \PY{o}{=} \PY{n}{bigG}\PY{o}{*}\PY{n}{massSun}\PY{o}{/}\PY{p}{(}\PY{n}{cee}\PY{o}{*}\PY{n}{cee}\PY{p}{)} \PY{c+c1}{\PYZsh{}(* meters per solar mass, units of G=c=1, no factor}
+         \PY{c+c1}{\PYZsh{}of 2 as in Schwarzschild radius *)}
+         \PY{n}{masscon} \PY{o}{=} \PY{n}{lunits}\PY{p}{;} \PY{c+c1}{\PYZsh{}(* m, G Msol/c\PYZca{}2, for 1 solar mass *)}
+         \PY{n}{powercon} \PY{o}{=} \PY{n}{cee}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{o}{/}\PY{n}{bigG}  \PY{c+c1}{\PYZsh{}(* 3.628e52 W, c\PYZca{}5/G, W/unit since P is dimensionless in G=c=1 units *)}
+         \PY{n}{energycon} \PY{o}{=} \PY{p}{(}\PY{n}{cee}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{/}\PY{n}{bigG}  \PY{c+c1}{\PYZsh{}(* 1.210e44 J/m, c\PYZca{}4/G *)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Compare my cee  299792458.0  and scipy.constants  299792458.0
+Compare my bigG  6.67408e-11  and scipy.constants  6.67408e-11
+
+    \end{Verbatim}
+
+    \subsection{Orbital frequency}\label{orbital-frequency}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} append orbital frequency in Hz!}
+         \PY{n}{orbFreqs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{aa} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{secsDay} \PY{p}{)}
+             \PY{n}{orbFreqs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{aa} \PY{p}{)}
+             
+         
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbFreqs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{orbFreqs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} time to get fancy}
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Log plot need even bins in Log\PYZhy{}Space??}
+         \PY{n}{binmin} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}10}
+         \PY{n}{binmax} \PY{o}{=} \PY{l+m+mf}{0.001}
+         \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{binexp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{binexp}\PY{p}{)}
+         
+         \PY{n}{aData}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbFreqs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{mybins}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanets with Orbital Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}ylim( (0.7, 2000) )}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f, Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopOrbFreqsHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopOrbFreqsHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Print the max orb freq}
+         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Round trip time for LISA lasers along leg }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{o}{/}\PY{n}{cee}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ secs,  and frequency of }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{n}{cee}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Hz.}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orbital frequency in Hz, NOT with GW modeset yet }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orbFreqs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Round trip time for LISA lasers along leg  16.6782047599076  secs,  and frequency of  0.0599584916  Hz.
+Orbital frequency in Hz, NOT with GW modeset yet  0.0001275994649772808
+
+    \end{Verbatim}
+
+    \subsection{Chrip Mass histo}\label{chrip-mass-histo}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} append chirp mass to }
+         \PY{n}{chirpMs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{m1} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{massSun}
+             \PY{n}{m2} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{massJ}
+             \PY{n}{aa} \PY{o}{=} \PY{p}{(}\PY{n}{m1}\PY{o}{*}\PY{n}{m2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{m1}\PY{o}{+}\PY{n}{m2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{n}{massSun}
+             \PY{n}{chirpMs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{aa} \PY{p}{)}
+             
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chirpMassMsols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{chirpMs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} time to get fancy}
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{aData}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chirpMassMsols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanets with chirp mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chirp Mass, Msol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopChirpMHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopChirpMHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Append the rows I need for the modeset and GW freqs
+histo}\label{append-the-rows-i-need-for-the-modeset-and-gw-freqs-histo}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Actually append n\PYZus{}min, n\PYZus{}max, numpy array of GW strains h.}
+         \PY{c+c1}{\PYZsh{} In the Mathematica JustStrainPlots.nb, about 40\PYZpc{} down, calc hhVfreq first time.}
+         
+         \PY{n}{hhmodesCol} \PY{o}{=} \PY{p}{[}\PY{p}{]}  \PY{c+c1}{\PYZsh{} Setup a list of the hhmodes that will be appended to the dataframe.}
+         \PY{n}{modesCol} \PY{o}{=} \PY{p}{[}\PY{p}{]}    \PY{c+c1}{\PYZsh{} The modes set acually used for the calculation, int(modeMin) to int(modeMax)+1}
+         \PY{n}{freq0Col} \PY{o}{=} \PY{p}{[}\PY{p}{]}    \PY{c+c1}{\PYZsh{} Collect the orbital frequency that was used.}
+         
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Calculate the SI parameters needed by the strains and the strain \PYZdq{}front coefficient.\PYZdq{}}
+             
+             \PY{n}{orbeccen} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbeccen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{modeMax} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{aNmax}\PY{p}{(} \PY{n}{orbeccen} \PY{p}{)}  \PY{c+c1}{\PYZsh{} The \PYZdq{}max\PYZdq{} mode number where g(n,e) returns to 1/20th its peak value.}
+             \PY{n}{modeMin} \PY{o}{=} \PY{n}{gwt}\PY{o}{.}\PY{n}{aNmin}\PY{p}{(} \PY{n}{orbeccen} \PY{p}{)}  \PY{c+c1}{\PYZsh{} Either 1 for e\PYZgt{}0 or 2 for e=0.}
+             \PY{c+c1}{\PYZsh{}}
+             \PY{n}{m1} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}bmassj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{massJ}
+             \PY{n}{m2} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}mass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{massSun}
+             \PY{n}{smax} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbsmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{au}
+             \PY{n}{dL} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{pc}
+             \PY{n}{freq0} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pl\PYZus{}orbper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}\PY{o}{*}\PY{n}{secsDay} \PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Amaro\PYZhy{}Seoane Eqn. (9)...common terms.}
+             \PY{n}{frontCoeff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{bigG}\PY{p}{,}\PY{l+m+mi}{5}\PY{o}{/}\PY{l+m+mf}{3.}\PY{p}{)}\PY{o}{/}\PY{n}{cee}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4} \PY{o}{*} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{32}\PY{o}{/}\PY{l+m+mf}{5.}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(} \PY{n}{gwt}\PY{o}{.}\PY{n}{chirpM}\PY{p}{(}\PY{n}{m1}\PY{p}{,}\PY{n}{m2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{5}\PY{o}{/}\PY{l+m+mf}{3.}\PY{p}{)}\PY{o}{*}\PYZbs{}
+             \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{freq0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mf}{3.}\PY{p}{)}\PY{o}{/}\PY{n}{dL}
+             \PY{k}{if} \PY{n}{irow} \PY{o}{\PYZgt{}} \PY{l+m+mi}{6} \PY{o+ow}{and} \PY{n}{irow} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{irow is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{irow}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ ,frontCoeff is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frontCoeff}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ pl\PYZus{}orbeccen is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{orbeccen}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Now loop over the GW modes and calc the dim\PYZhy{}less strain and the modes used.}
+             \PY{n}{hhmodes} \PY{o}{=} \PY{p}{[} \PY{n}{frontCoeff}\PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{n}{gwt}\PY{o}{.}\PY{n}{ggSimp}\PY{p}{(}\PY{n}{uu}\PY{p}{,} \PY{n}{orbeccen}\PY{p}{)} \PY{p}{)}\PY{o}{/}\PY{n}{uu} \PY{k}{for} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{modeMin}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{modeMax}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}  \PY{p}{]}
+             \PY{n}{modes} \PY{o}{=} \PY{p}{[} \PY{n}{uu} \PY{k}{for} \PY{n}{uu} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{modeMin}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{modeMax}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}  \PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} Append to the list.}
+             \PY{n}{hhmodesCol}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{hhmodes} \PY{p}{)}
+             \PY{n}{modesCol}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{modes} \PY{p}{)}
+             \PY{n}{freq0Col}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{freq0} \PY{p}{)}
+                
+         \PY{c+c1}{\PYZsh{}Append the hhmodesCol to the dataframe, for ease of getting at the other attributes.}
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{freq0Col}
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{modesCol}
+         \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhmodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{hhmodesCol}
+         
+         \PY{n}{aData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+irow is  7  ,frontCoeff is  4.6311021600204593e-26  pl\_orbeccen is  0.03
+irow is  8  ,frontCoeff is  2.169114619938696e-26  pl\_orbeccen is  0.41
+irow is  9  ,frontCoeff is  2.5108674723286658e-25  pl\_orbeccen is  0.638
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}    pl\_hostname pl\_letter    pl\_discmethod  pl\_orbper  pl\_orbsmax  pl\_orbeccen  \textbackslash{}
+         0  HD 142022 A         b  Radial Velocity     1928.0        3.03       0.5300   
+         1     HD 39091         b  Radial Velocity     2151.0        3.38       0.6405   
+         2  HD 137388 A         b  Radial Velocity      330.0        0.89       0.3600   
+         
+            pl\_bmassj  st\_dist  st\_mass   rowupdate  st\_plx      orbFreqs  \textbackslash{}
+         0      5.100    35.87     0.99  2014-05-14   27.88  6.003150e-09   
+         1     10.270    18.21     1.10  2014-07-23   54.92  5.380788e-09   
+         2      0.223    38.45     0.86  2014-05-14   26.01  3.507295e-08   
+         
+            chirpMassMsols         freq0  \textbackslash{}
+         0        0.040754  6.003150e-09   
+         1        0.064644  5.380788e-09   
+         2        0.005896  3.507295e-08   
+         
+                                                        modes  \textbackslash{}
+         0  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         1  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14{\ldots}   
+         2                              [1, 2, 3, 4, 5, 6, 7]   
+         
+                                                      hhmodes  
+         0  [1.8702816437643177e-26, 2.1740658908129503e-2{\ldots}  
+         1  [8.230508420052954e-26, 4.507375225359441e-26,{\ldots}  
+         2  [1.6721119496253516e-27, 4.481574164761941e-27{\ldots}  
+\end{Verbatim}
+            
+    \subsection{All GW modes freqs
+histogrammed.}\label{all-gw-modes-freqs-histogrammed.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Build the XX and YY\PYZsq{}s from the modesets and the orbital freq.}
+         \PY{c+c1}{\PYZsh{} time to get fancy}
+         \PY{n}{afig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{afig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{myfreqs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{irow} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{aData}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{freq0} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freq0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}
+             \PY{n}{modes} \PY{o}{=} \PY{n}{aData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{modes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{n}{irow}\PY{p}{]}  \PY{c+c1}{\PYZsh{} a list not np.array}
+             \PY{k}{for} \PY{n}{im} \PY{o+ow}{in} \PY{n}{modes}\PY{p}{:}
+                 \PY{n}{myfreqs}\PY{o}{.}\PY{n}{append}\PY{p}{(} \PY{n}{im}\PY{o}{*}\PY{n}{freq0} \PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{myfreqs}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Log plot need even bins in Log\PYZhy{}Space??}
+         \PY{n}{binmin} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}10}
+         \PY{n}{binmax} \PY{o}{=} \PY{l+m+mf}{0.001}
+         \PY{n}{nbins} \PY{o}{=} \PY{l+m+mi}{200}
+         \PY{n}{binexp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmin}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{binmax}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{nbins}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mybins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{binexp}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{myfreqs}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{n}{mybins}\PY{p}{)}
+             
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exoplanet GWs with Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xscale(\PYZsq{}log\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}ylim( (0.7, 10000) )}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f, Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{k}{if} \PY{n}{savePlot}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopGWFreqsHisto.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../poster/pix/exopGWFreqsHisto.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Print the max orb freq}
+         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Round trip time for LISA lasers along leg }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{o}{/}\PY{n}{cee}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ secs,  and frequency of }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+               \PY{n}{cee}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Hz, and C\PYZam{}R \PYZdl{}f\PYZus{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{star\PYZdl{} }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{cee}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{l+m+mf}{2.5e9}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Hz}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max GW frequency in Hz, NOT with GW modeset yet }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(} \PY{n}{myfreqs} \PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6312
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Round trip time for LISA lasers along leg  16.6782047599076  secs,  and frequency of  0.0599584916  Hz, and C\&R \$f\_\textbackslash{}star\$  0.01908538063694777  Hz
+Max GW frequency in Hz, NOT with GW modeset yet  0.0003827983949318424
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
