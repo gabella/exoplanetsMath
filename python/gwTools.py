@@ -166,6 +166,35 @@ def hh(nn, ee, m1, m2, a, dL):
     bb = np.power(G,5/3)/c**4 * bb  # Put on units to make it dimensionless.
     return( bb )
 
+def hhModes(ee, m1, m2, a, dL, freq=0):
+    """From Amaro-Seoane et al. 2010, the GW amplitude for eccentricity ee, 
+    binary masses m1 and m2, semi-major axis a, and distance to source dL.  Use SI units.
+    If freq is zero, use Kepler and a to find the orbital period.
+    Returns the tuple of (modes, GW amplitudes for those frequency modes).
+    Amaro-Seoane et al. Eqn. (9), refs Finn and Thorne 2000.
+    """
+    from scipy.constants import speed_of_light, gravitational_constant, c, G, pi
+    cee = speed_of_light
+    bigG = G
+    
+    freq0 = freq
+    if freq<=0:
+        freq0 = orbitalFreq(m1, m2, a)  # In Hz.
+    orbeccen = ee
+    modeMax = aNmax( orbeccen )  # The "max" mode number where g(n,e) returns to 1/20th its peak value.
+    modeMin = aNmin( orbeccen )  # Either 1 for e>0 or 2 for e=0.
+    
+    frontCoeff = np.power(bigG,5/3.)/cee**4 * 2 * np.sqrt(32/5.) * np.power( chirpM(m1,m2), 5/3.)*\
+        np.power((2*np.pi*freq0), 2/3.)/dL
+    
+    # Now loop over the GW modes and calc the dim-less strain and the modes used.
+    hhmodes = [ frontCoeff* np.sqrt( ggSimp(uu, orbeccen) )/uu for uu in range(int(modeMin), int(modeMax)+1)  ]
+    modes = [ uu for uu in range(int(modeMin), int(modeMax)+1)  ]
+
+    #bb = 2*np.sqrt(32/5.)*chirpM(m1, m2)/nn/dL*np.power(2*pi*freq, 2/3)*np.sqrt( ggSimp(nn, ee) )
+    #bb = np.power(G,5/3)/c**4 * bb  # Put on units to make it dimensionless.
+    return( (modes, hhmodes) )
+
 def fitEcc2N2(ecc):
     """Find from Mathematica fitted data, the maximum useful GW mode number, there the number n where the relative
     amplitude g(n,e) returns to the absolute value 0.05.
@@ -197,7 +226,7 @@ def aNmin(ecc):
         return(1)
 
 
-def lisa_psd():  # Not Used, kwargs is a dictionary, handle below, call with lisa_psd(kind='linear'), etc.
+def lisa_psd():
     """Computes LISA sensitivity curve according to `Cornish and Robson 2018 <https://arxiv.org/pdf/1803.01944.pdf>`_ Their Eqn. (1) and (10) for P_oms (optical metrology noise) and (11) P_acc (test mass acceleration noise). Does NOT include S_c the confusion noise from white dwarf binaries.
     Returns an interpolating function for S_n() which has units "per Hz," so use result(my number) to call the function.  The frequency must be between 1e-9 and 10 Hz.
     """
@@ -217,6 +246,31 @@ def lisa_psd():  # Not Used, kwargs is a dictionary, handle below, call with lis
 
     return spint.interp1d(freq, S_n )  # This is good enough interp, see GWStrainPlotsSNR for linear interp in the 
                                        # log-log-space, which is very linear.
+    
+def lisa_sn(freq):
+    """Computes LISA sensitivity curve according to `Cornish and Robson 2018 <https://arxiv.org/pdf/1803.01944.pdf>`_ Their Eqn. (1) and (10) for P_oms (optical metrology noise) and (11) P_acc (test mass acceleration noise). Does NOT include S_c the confusion noise from white dwarf binaries.
+    Returns the value of S_n(f) at that frequency.
+    """
+    import scipy.interpolate as spint
+    
+    if freq <=0:
+        print('***Error in lisa_sn(freq): freq is 0 or negative ', freq)
+        return(-9999.0)
+    
+    # note: freq [Hz], L_arm [m], S_n [Hz^-0.5]
+    L_arm = 2.5e9  # meters
+    f_star = 19.09*1e-3  # Hz
+
+    P_oms = (1.5e-11)**2*(1. + (2.0e-3/freq)**4)  # m^2/Hz, OMS = optical metrology noise
+    P_acc = (3.0e-15)**2*(1. + (0.4e-3/freq)**2)*(1. + (freq/(8.0e-3))**4) # m^2/Hz, single test mass acceleration noise
+
+    P_n = (P_oms + 2.*(1. + np.cos(freq/f_star)**2)*P_acc/(2.*np.pi*freq)**4)/L_arm**2
+    R = 3./20./(1. + 6./10.*(freq/f_star)**2)  # unitless, Eqn. (9), the transfer function
+    S_n = P_n/R
+
+    return(S_n)
+
+    
 
     
 def main():
