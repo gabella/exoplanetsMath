@@ -58,8 +58,11 @@ def ggSimp(nn, ee):
         print('%s: error mode number less than 1'%'ggSimp()')
         return(-999.0)
 
-    if ee == 0:
-        return(1.0)
+    if np.isclose(ee, 0.0):
+        if np.isclose(nn, 2.0):
+            return(1.0)
+        else:
+            return(0.0)
     else:
         esq = ee*ee
         mesq = 1-esq
@@ -89,23 +92,26 @@ def ggPM(nn, ee):
     if nn_error:
         print('%s: error mode number less than 1'%'ggPM')
         return(-999.0)
-    print(ee)
-    if ee == 0:
-        return(1.0)
-    else:
-        esq = ee*ee
-        mesq = 1-esq
-        jja = jn(nn-2, nn*ee)
-        jjb = jn(nn-1, nn*ee)
-        jjc = jn(nn, nn*ee)
-        jjd = jn(nn+1, nn*ee)
-        jje = jn(nn+2, nn*ee)
-        one = jja-2*ee*jjb+2/nn*jjc+2*ee*jjd-jje
-        one = one*one
-        two = jja-2*jjc+jje
-        two = mesq*two*two
-        three = 4/(3*nn*nn)*jjc*jjc
-        return( nn**4/(32)*(one + two + three) )
+    #print(ee)
+    if np.isclose(ee, 0.0):
+        if np.isclose(nn, 2):
+            return(1.0)
+        else:
+            return(0.0)
+
+    esq = ee*ee
+    mesq = 1-esq
+    jja = jn(nn-2, nn*ee)
+    jjb = jn(nn-1, nn*ee)
+    jjc = jn(nn, nn*ee)
+    jjd = jn(nn+1, nn*ee)
+    jje = jn(nn+2, nn*ee)
+    one = jja-2*ee*jjb+2/nn*jjc+2*ee*jjd-jje
+    one = one*one
+    two = jja-2*jjc+jje
+    two = mesq*two*two
+    three = 4/(3*nn*nn)*jjc*jjc
+    return( nn**4/(32)*(one + two + three) )
     
 def ggAS(nn, ee):
     """From Amaro-Seoane et al, 2010, SMBHs triplits.  Re-write of Peters and Mathews.  Boring.
@@ -122,7 +128,7 @@ def smaf(ee):
     total power radiated if the system was circular.  Maggiore Eqn. 4.75, 
     Peters and Mathews Eqn. (17).
     """
-    if ee == 0:
+    if np.isclose(ee, 0):
         return(1.0)
     else:
         esq = ee*ee
@@ -238,7 +244,7 @@ def lisa_psd():
     f_star = 19.09*1e-3  # Hz
 
     P_oms = (1.5e-11)**2*(1. + (2.0e-3/freq)**4)  # m^2/Hz, OMS = optical metrology noise
-    P_acc = (3.0e-15)**2*(1. + (0.4e-3/freq)**2)*(1. + (freq/(8.0e-3))**4) # m^2/Hz, single test mass acceleration noise
+    P_acc = (3.0e-15)**2*(1. + (0.4e-3/freq)**2)*(1. + (freq/(8.0e-3))**4) # m^2/s^4/Hz, single test mass acceleration noise
 
     P_n = (P_oms + 2.*(1. + np.cos(freq/f_star)**2)*P_acc/(2.*np.pi*freq)**4)/L_arm**2
     R = 3./20./(1. + 6./10.*(freq/f_star)**2)  # unitless, Eqn. (9), the transfer function
@@ -269,6 +275,38 @@ def lisa_sn(freq):
     S_n = P_n/R
 
     return(S_n)
+
+def lisa_Sconf(Tint):
+    """Computes unresolved galactic binaries for LISA sensitivity curve according to `Cornish and Robson 2018 <https://arxiv.org/pdf/1803.01944.pdf>`_ Their Eqn. (14) for S_c the confusion noise from white dwarf binaries.
+    Tint is the integrated time, 0-6mos, 1-1 yr, 2-2yr, 3-4 yr.
+    Returns an interpolating function for S_n() which has units "per Hz," so use result(my number) to call the function.  The frequency must be between 1e-9 and 10 Hz.
+    """
+
+    if Tint not in list( range(0,4) ):
+        print('gwTools.lisa_Sconf: ***Error, Tint not in range 0 to 3, inclusive. Tint is {}'.format(Tint))
+        return(-9999)
+    
+    
+    import scipy.interpolate as spint
+    
+#    Cornish and Robson's 0.5 yr, 1, 2, and 4 yr parameters for S_c(f).
+#    Parameters are  alpha, beta, kappa, gamma, f_k for the time integration period mentioned.
+    fitConst = np.array( [ [ 0.133, 243, 482, 917, 0.00258],
+                [0.171, 292, 1020, 1680, 0.00215],
+                [0.165, 299, 611, 1340, 0.00173],
+               [0.138, -221, 521, 1680, 0.00113] ])
+    bigA = 9.0e-45
+    
+    (aa, bb, kk, gg, fsubk) = fitConst[Tint,:]
+    
+    freq = np.logspace(-9,1,10000)
+    # note: freq [Hz], L_arm [m], S_n [Hz^-0.5]
+
+    acoeff = 1.0 + np.tanh( gg*(fsubk-freq) )
+    bexp = -np.power( freq, aa ) + bb*freq*np.sin(kk*freq)
+    S_c = bigA*np.power( freq, -7/3 )*np.exp( bexp )*acoeff  # Eqn. (14) has a big, ol' A in front!!??
+
+    return spint.interp1d(freq, S_c )  # This is good enough interp, see GWStrainPlotsSNR for linear interp in the 
 
     
 
